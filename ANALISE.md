@@ -18,7 +18,7 @@ ANTLR 4.13.2 e estao em `out/saida-antlr4.txt` (saida bruta) e
 | Linhas | 570 (regras lexicas a partir da linha 445) | 245 |
 | Autoria | grammars-v4, baseada na spec GraphQL Oct/2021 | Bart Kiers / Martin Mirchev (MIT) |
 | `options` | nenhuma | `caseInsensitive = true` |
-| Tokens declarados | 12 (+ 8 `fragment`) | ~200 (a maioria palavras-reservadas) |
+| Tokens declarados | 14 (+ 12 `fragment`) | 188 (a maioria palavras-reservadas) |
 | Catch-all de erro | **nao possui** | `UNEXPECTED_CHAR : .` |
 
 A escolha do par e proposital: as duas gramaticas resolvem as **mesmas tres
