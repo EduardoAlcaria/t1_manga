@@ -1,0 +1,24 @@
+@startebnf
+title GraphQL.g4 - regras lexicas analisadas
+
+(* Conjuntos de caracteres aparecem como "sequencias especiais" (?...?),
+   pois a EBNF ISO usada pelo PlantUML nao possui notacao de intervalo. *)
+
+NAME = ? [_A-Za-z] ?, { ? [_0-9A-Za-z] ? };
+
+STRING = '"', { CHARACTER }, '"';
+CHARACTER = ESC | ? qualquer caractere exceto " e \ ?;
+ESC = "\", ( '"' | "\" | "/" | "b" | "f" | "n" | "r" | "t" | UNICODE );
+UNICODE = "u", HEX, HEX, HEX, HEX;
+HEX = ? [0-9a-fA-F] ?;
+
+INT = [ "-" ], ( "0" | ? [1-9] ?, { ? [0-9] ? } );
+
+FLOAT =
+    INT, FRACTIONAL_PART
+  | INT, EXPONENTIAL_PART
+  | INT, FRACTIONAL_PART, EXPONENTIAL_PART;
+
+FRACTIONAL_PART = ".", ? [0-9] ?, { ? [0-9] ? };
+EXPONENTIAL_PART = ? [eE] ?, [ ? [+-] ? ], ? [0-9] ?, { ? [0-9] ? };
+@endebnf
