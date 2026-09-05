@@ -1,0 +1,35 @@
+@startebnf
+title SQLiteLexer.g4 - regras lexicas analisadas
+
+(* A gramatica declara options { caseInsensitive = true; }: todo intervalo
+   [A-Z] casa tambem com a minuscula. O diagrama nao consegue expressar isso. *)
+
+(* O renderizador EBNF do PlantUML (motor EbnfEngine, testado na versao
+   baixada de github.com/plantuml/plantuml/releases/latest em 02/09/2026)
+   trava com java.util.NoSuchElementException em EbnfEngine.alternation()
+   sempre que uma alternativa de topo contem, ela propria, uma alternacao
+   aninhada dentro de "{ }" - e IDENTIFIER tem isso em tres das quatro
+   alternativas. Contornamos desmembrando a regra em quatro sub-diagramas
+   nomeados IDENTIFIER_<forma>; a alternativa completa aparece intacta na
+   versao BottleCaps (regras.ebnf) e no diagrama gerado pela extensao
+   vscode-antlr4, que nao sofrem dessa limitacao. Ver ANALISE.md, secao 5. *)
+
+IDENTIFIER_ASPAS_DUPLAS = '"', { ? qualquer caractere fora o delimitador ? | '""' }, '"';
+IDENTIFIER_CRASE        = "`", { ? qualquer caractere fora o delimitador ? | "``" }, "`";
+IDENTIFIER_COLCHETES    = "[", { ? qualquer caractere fora o delimitador ? }, "]";
+IDENTIFIER_NUA          = ? [A-Z_] ou U+007F..U+FFFF ?, { ? [A-Z_0-9] ou U+007F..U+FFFF ? };
+
+NUMERIC_LITERAL =
+    (
+        DIGITOS, [ ".", [ DIGITOS ] ]
+      | ".", DIGITOS
+    ), [ "E", [ ? [-+] ? ], DIGITOS ]
+  | "0x", HEX_DIGIT, { HEX_DIGIT }, { "_", HEX_DIGIT, { HEX_DIGIT } };
+
+DIGITOS = DIGIT, { DIGIT }, { "_", DIGIT, { DIGIT } };
+
+DIGIT = ? [0-9] ?;
+HEX_DIGIT = ? [0-9A-F] ?;
+
+STRING_LITERAL = "'", { ? qualquer caractere fora o delimitador ? | "''" }, "'";
+@endebnf
