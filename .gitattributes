@@ -1,0 +1,9 @@
+# Scripts e codigo: sempre LF, mesmo com core.autocrlf=true no Windows.
+# Sem isso o Git Bash falha com "$'\r': command not found" ao rodar ./run.sh.
+* text=auto eol=lf
+
+# Entradas dos casos de teste: bytes exatos, o lexer nao pode ver CR extra.
+inputs/** -text
+
+*.pdf binary
+*.png binary
