@@ -1,0 +1,54 @@
+/* ---------------------------------------------------------------------------
+ * TP1 - Diagramas de sintaxe (railroad diagrams)
+ *
+ * Entrada para o gerador BottleCaps RR: https://www.bottlecaps.de/rr/ui
+ *   aba "Edit Grammar" -> colar este arquivo -> aba "View Diagram"
+ *
+ * Notacao: W3C EBNF (a mesma usada nas specs da W3C). As regras abaixo sao a
+ * traducao literal das regras ANTLR4 originais de grammars/GraphQL.g4 e
+ * grammars/SQLiteLexer.g4. Conjuntos de caracteres que contem aspas ou barra
+ * invertida foram escritos com codigos #xNN para evitar ambiguidade.
+ * ------------------------------------------------------------------------- */
+
+
+/* =========================== GraphQL.g4 =============================== */
+
+/* https://spec.graphql.org/October2021/#sec-Names */
+NAME             ::= [_A-Za-z] [_0-9A-Za-z]*
+
+/* https://spec.graphql.org/October2021/#sec-String-Value */
+STRING           ::= '"' CHARACTER* '"'
+CHARACTER        ::= ESC | [^#x22#x5C]
+ESC              ::= '\' ( '"' | '\' | '/' | 'b' | 'f' | 'n' | 'r' | 't' | UNICODE )
+UNICODE          ::= 'u' HEX HEX HEX HEX
+HEX              ::= [0-9a-fA-F]
+
+/* https://spec.graphql.org/October2021/#sec-Int-Value e #sec-Float-Value */
+INT              ::= '-'? '0'
+                   | '-'? [1-9] [0-9]*
+FLOAT            ::= INT FRACTIONAL_PART
+                   | INT EXPONENTIAL_PART
+                   | INT FRACTIONAL_PART EXPONENTIAL_PART
+FRACTIONAL_PART  ::= '.' [0-9]+
+EXPONENTIAL_PART ::= [eE] [+-]? [0-9]+
+
+
+/* =========================== SQLiteLexer.g4 ============================ */
+/* Atencao: a gramatica declara options { caseInsensitive = true; }, portanto
+ * todo [A-Z] abaixo casa tambem com a letra minuscula correspondente. Essa
+ * informacao NAO aparece no diagrama de ferrovia - e uma das limitacoes
+ * discutidas no relatorio. */
+
+IDENTIFIER       ::= '"' ( [^#x22] | '""' )* '"'
+                   | '`' ( [^#x60] | '``' )* '`'
+                   | '[' [^#x5D]* ']'
+                   | [A-Z_#x7F-#xFFFF] [A-Z_0-9#x7F-#xFFFF]*
+
+NUMERIC_LITERAL  ::= ( DIGIT+ ( '_' DIGIT+ )* ( '.' ( DIGIT+ ( '_' DIGIT+ )* )? )?
+                     | '.' DIGIT+ ( '_' DIGIT+ )*
+                     ) ( 'E' [-+]? DIGIT+ ( '_' DIGIT+ )* )?
+                   | '0x' HEX_DIGIT+ ( '_' HEX_DIGIT+ )*
+DIGIT            ::= [0-9]
+HEX_DIGIT        ::= [0-9A-F]
+
+STRING_LITERAL   ::= "'" ( [^#x27] | "''" )* "'"
