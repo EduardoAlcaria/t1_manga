@@ -1,0 +1,25 @@
+# lexer	regra	expectativa	arquivo	justificativa
+GraphQL	NAME	ACEITA	inputs/graphql/name_ok_1.txt	Letra inicial + digitos + underscore no meio
+GraphQL	NAME	ACEITA	inputs/graphql/name_ok_2.txt	Underscore como primeiro caractere e permitido
+GraphQL	NAME	REJEITA	inputs/graphql/name_bad_1.txt	NAME nao pode comecar com digito
+GraphQL	NAME	REJEITA	inputs/graphql/name_bad_2.txt	Hifen nao pertence ao conjunto [_0-9A-Za-z]
+GraphQL	INT/FLOAT	ACEITA	inputs/graphql/num_ok_1.txt	Sinal negativo + parte fracionaria + expoente
+GraphQL	INT/FLOAT	ACEITA	inputs/graphql/num_ok_2.txt	INT FRACTIONAL_PART
+GraphQL	INT/FLOAT	REJEITA	inputs/graphql/num_bad_1.txt	Underscore como separador de milhar nao existe em GraphQL
+GraphQL	INT/FLOAT	REJEITA	inputs/graphql/num_bad_2.txt	Zeros a esquerda proibidos pela regra INT
+GraphQL	STRING	ACEITA	inputs/graphql/str_ok_1.txt	Escape unicode \\uXXXX via fragment UNICODE
+GraphQL	STRING	ACEITA	inputs/graphql/str_ok_2.txt	Escape simples \\n pertence a ["\\\\/bfnrt]
+GraphQL	STRING	REJEITA	inputs/graphql/str_bad_1.txt	\\p nao e escape valido no fragment ESC
+GraphQL	STRING	REJEITA	inputs/graphql/str_bad_2.txt	String sem aspas de fechamento
+SQLite	IDENTIFIER	ACEITA	inputs/sqlite/ident_ok_1.txt	Identificador delimitado por aspas duplas admite espaco
+SQLite	IDENTIFIER	ACEITA	inputs/sqlite/ident_ok_2.txt	Forma delimitada por colchetes (heranca do T-SQL)
+SQLite	IDENTIFIER	REJEITA	inputs/sqlite/ident_bad_1.txt	Aspas simples produzem STRING_LITERAL, nao IDENTIFIER
+SQLite	IDENTIFIER	REJEITA	inputs/sqlite/ident_bad_2.txt	IDENTIFIER nao pode comecar com digito
+SQLite	NUMERIC_LITERAL	ACEITA	inputs/sqlite/num_ok_1.txt	Underscore como separador de grupo + parte fracionaria
+SQLite	NUMERIC_LITERAL	ACEITA	inputs/sqlite/num_ok_2.txt	Alternativa hexadecimal 0x com separador
+SQLite	NUMERIC_LITERAL	REJEITA	inputs/sqlite/num_bad_1.txt	Sinal nao faz parte do literal (vira token MINUS)
+SQLite	NUMERIC_LITERAL	REJEITA	inputs/sqlite/num_bad_2.txt	Virgula nao e separador de grupo aceito
+SQLite	STRING_LITERAL	ACEITA	inputs/sqlite/str_ok_1.txt	Aspa simples escapada por duplicacao ('')
+SQLite	STRING_LITERAL	ACEITA	inputs/sqlite/str_ok_2.txt	Barra invertida e caractere literal, nao escape
+SQLite	STRING_LITERAL	REJEITA	inputs/sqlite/str_bad_1.txt	Aspas duplas produzem IDENTIFIER, nao STRING_LITERAL
+SQLite	STRING_LITERAL	REJEITA	inputs/sqlite/str_bad_2.txt	String sem aspa de fechamento
