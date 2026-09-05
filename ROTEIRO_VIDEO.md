@@ -161,6 +161,30 @@ testes reais no ANTLR4. Obrigado."
 
 ## Comandos pra mostrar na tela durante o Bloco 2
 
+Todos os dez comandos foram executados e conferem com o `ANALISE.md`.
+
+**PowerShell (Windows)** - separador de classpath `;`, aspas obrigatorias:
+
+```powershell
+# Eduardo - identificador
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens GraphQL inputs/graphql/name_ok_1.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens SQLite inputs/sqlite/ident_ok_1.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens SQLite inputs/sqlite/ident_bad_1.txt
+
+# Ethan - numero
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens SQLite inputs/sqlite/num_ok_1.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens GraphQL inputs/graphql/num_bad_1.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens GraphQL inputs/graphql/num_ok_1.txt
+
+# Arthur - texto
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens SQLite inputs/sqlite/str_ok_2.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens GraphQL inputs/graphql/str_bad_1.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens GraphQL inputs/graphql/str_bad_2.txt
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens SQLite inputs/sqlite/str_bad_2.txt
+```
+
+**Linux, macOS ou Git Bash** - separador `:`:
+
 ```bash
 # Eduardo - identificador
 java -cp tools/antlr-4.13.2-complete.jar:gen/classes DumpTokens GraphQL inputs/graphql/name_ok_1.txt
