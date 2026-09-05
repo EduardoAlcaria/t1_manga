@@ -353,8 +353,9 @@ svg{max-width:100%;height:auto;display:block}
       <li>O algoritmo é <span class="hl-cyan">maximal munch</span>: consome o maior prefixo que alguma regra reconhece, emite o token e recomeça dali.</li>
       <li>Empate de tamanho é resolvido pela <b>ordem de declaração</b> no arquivo <code>.g4</code> — quem vem antes vence.</li>
       <li>Por isso <b>"entrada rejeitada" raramente é uma mensagem de erro</b>: quase sempre é só uma quebra diferente do fluxo de tokens.</li>
+      <li>Escopo do trabalho: <b>só a parte léxica</b> — nada de parser, nada de compilador completo. Só como cada gramática corta o texto em tokens.</li>
     </ul>
-    <div class="callout">Comparamos duas gramáticas do repositório oficial <b>grammars-v4</b>, sem modificar uma linha delas.</div>
+    <div class="callout">Duas gramáticas do repositório oficial <b>grammars-v4</b>, sem modificar uma linha delas. Reserva registrada no fórum do Moodle em <b>01/09/2026</b>.</div>
     <div class="speaker">bloco 1 · <b>Arthur</b></div>
   </section>
 
@@ -463,31 +464,39 @@ $ java -cp ...:gen/classes \
             <div class="stream"><span class="tok ok"><span class="n">NAME</span><span class="v">userProfile_2024</span></span></div></div>
         </div>
         <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict r">rejeita</span><span class="note">hífen não pertence a [_0-9A-Za-z]</span></div>
-          <div class="io"><span class="src">user-profile-name</span><span class="arrow">▶</span>
-            <div class="stream">
-              <span class="tok ok"><span class="n">NAME</span><span class="v">user</span></span>
-              <span class="tok bad"><span class="n">NAME</span><span class="v">rofile</span></span>
-              <span class="tok bad"><span class="n">NAME</span><span class="v">ame</span></span>
-            </div></div>
-          <div class="errline">line 1:4 error at '-p' &nbsp;·&nbsp; line 1:12 error at '-n'</div>
+          <div class="head"><span class="who g">GraphQL</span><span class="verdict a">aceita</span><span class="note">underscore pode abrir</span></div>
+          <div class="io"><span class="src">_internalFieldName</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok ok"><span class="n">NAME</span><span class="v">_internalFieldName</span></span></div></div>
         </div>
       </div>
       <div>
+        <div class="case">
+          <div class="head"><span class="who s">SQLite</span><span class="verdict a">aceita</span><span class="note">espaço dentro, via aspas duplas</span></div>
+          <div class="io"><span class="src">"minha coluna"</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">"minha coluna"</span></span></div></div>
+        </div>
         <div class="case">
           <div class="head"><span class="who s">SQLite</span><span class="verdict a">aceita</span><span class="note">forma [...] herdada do T-SQL</span></div>
           <div class="io"><span class="src">[Order Details]</span><span class="arrow">▶</span>
             <div class="stream"><span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">[Order Details]</span></span></div></div>
         </div>
-        <div class="case">
-          <div class="head"><span class="who s">SQLite</span><span class="verdict r">rejeita</span><span class="note">aspa simples é string, não identificador</span></div>
-          <div class="io"><span class="src">'minha coluna'</span><span class="arrow">▶</span>
-            <div class="stream"><span class="tok bad"><span class="n">STRING_LITERAL</span><span class="v">'minha coluna'</span></span></div></div>
-          <div class="errline" style="color:var(--dim)">zero erros — só a categoria errada</div>
-        </div>
       </div>
     </div>
-    <div class="callout"><b>"minha coluna"</b> é IDENTIFIER no SQLite e STRING no GraphQL. <b>'minha coluna'</b> é STRING_LITERAL no SQLite e nem é reconhecível no GraphQL. O mesmo delimitador, significados trocados.</div>
+    <div class="cols even" style="align-items:start;margin-top:.2rem">
+      <div class="case">
+        <div class="head"><span class="who s">SQLite</span><span class="verdict r">esperávamos erro</span></div>
+        <div class="io"><span class="src">'minha coluna'</span><span class="arrow">▶</span>
+          <div class="stream"><span class="tok bad"><span class="n">STRING_LITERAL</span><span class="v">'minha coluna'</span></span></div></div>
+        <div class="errline" style="color:var(--dim)">zero erros — aspa simples em SQLite é <b>string</b>, não identificador</div>
+      </div>
+      <div class="case">
+        <div class="head"><span class="who s">SQLite</span><span class="verdict r">e o inverso também</span></div>
+        <div class="io"><span class="src">"texto simples"</span><span class="arrow">▶</span>
+          <div class="stream"><span class="tok bad"><span class="n">IDENTIFIER</span><span class="v">"texto simples"</span></span></div></div>
+        <div class="errline" style="color:var(--dim)">em GraphQL, a mesma entrada seria <b>STRING</b></div>
+      </div>
+    </div>
+    <div class="callout">O mesmo caractere delimitador leva a <b>categorias léxicas opostas</b> nas duas gramáticas.</div>
     <div class="speaker">bloco 2 · <b>Eduardo</b></div>
   </section>
 
@@ -568,7 +577,7 @@ $ java -cp ...:gen/classes \
     <div class="cols even" style="align-items:start">
       <div>
         <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict a">aceita</span><span class="note">sinal + fração + expoente</span></div>
+          <div class="head"><span class="who g">GraphQL</span><span class="verdict a">aceita</span><span class="note">sinal dentro do token</span></div>
           <div class="io"><span class="src">-3.14e+08</span><span class="arrow">▶</span>
             <div class="stream"><span class="tok ok"><span class="n">FLOAT</span><span class="v">-3.14e+08</span></span></div></div>
         </div>
@@ -579,7 +588,7 @@ $ java -cp ...:gen/classes \
               <span class="tok ok"><span class="n">INT</span><span class="v">10</span></span>
               <span class="tok bad"><span class="n">INT</span><span class="v">-5</span></span>
             </div></div>
-          <div class="errline" style="color:var(--dim)">o operador de subtração nunca chega ao parser</div>
+          <div class="errline" style="color:var(--dim)">o operador de subtração <b>desaparece no lexer</b></div>
         </div>
       </div>
       <div>
@@ -590,20 +599,11 @@ $ java -cp ...:gen/classes \
               <span class="tok alt"><span class="n">MINUS</span><span class="v">-</span></span>
               <span class="tok alt"><span class="n">NUMERIC_LITERAL</span><span class="v">42000</span></span>
             </div></div>
+          <div class="errline" style="color:var(--dim)">o parser precisa do <code>-</code> como operador aritmético</div>
         </div>
-        <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict r">zeros à esquerda</span></div>
-          <div class="io"><span class="src">007.50</span><span class="arrow">▶</span>
-            <div class="stream">
-              <span class="tok bad"><span class="n">INT</span><span class="v">0</span></span>
-              <span class="tok bad"><span class="n">INT</span><span class="v">0</span></span>
-              <span class="tok ok"><span class="n">FLOAT</span><span class="v">7.50</span></span>
-            </div></div>
-          <div class="errline" style="color:var(--dim)">zero erros — a proibição aparece só na forma do fluxo</div>
-        </div>
+        <div class="callout purple" style="margin-top:1rem">GraphQL não tem aritmética, então <code>-</code> só pode ser sinal. A mesma decisão de projeto aparece de dois jeitos opostos — e os dois fazem sentido.</div>
       </div>
     </div>
-    <div class="callout purple">A fronteira entre lexer e parser é <b>decisão de projeto</b>: GraphQL não tem aritmética, então <code>-</code> só pode ser sinal. O SQLite precisa do <code>-</code> como operador, e por isso o deixa fora do literal.</div>
     <div class="speaker">bloco 2 · <b>Ethan</b></div>
   </section>
 
@@ -756,7 +756,7 @@ $ java -cp ...:gen/classes \
 
   <!-- ================= 13 · ACHADOS EXTRAS ================= -->
   <section class="slide" id="s13">
-    <span class="slide-tag">// leitura linha a linha</span>
+    <span class="slide-tag">// extra · se sobrar tempo</span>
     <div class="kicker">Achados no GraphQL.g4</div>
     <h1 class="title">Três defeitos que o ANTLR <span class="accent">não avisa</span></h1>
     <div class="cards c3">
@@ -781,7 +781,7 @@ $ java -cp ...:gen/classes \
       <li>O BOM real (<code>U+FEFF</code>) casa por <code>UTF16_BOM</code>, então a regra quebrada é inofensiva na prática: só <b>engana quem lê</b>.</li>
       <li>No <code>SQLiteLexer.g4</code>, <span class="hl-green">nenhum defeito encontrado</span>.</li>
     </ul>
-    <div class="speaker">bloco 3 · <b>Eduardo</b></div>
+    <div class="speaker">bônus · sem fala no roteiro</div>
   </section>
 
   <!-- ================= 14 · CONCLUSÕES ================= -->
@@ -794,6 +794,16 @@ $ java -cp ...:gen/classes \
       <div class="stat r"><div class="num">4</div><div class="lab">geraram erro léxico<br>de verdade</div></div>
       <div class="stat p"><div class="num">8</div><div class="lab">falharam <b>em silêncio</b><br>só mudando os tokens</div></div>
       <div class="stat"><div class="num">0</div><div class="lab">erros léxicos possíveis<br>no <b>SQLite</b></div></div>
+    </div>
+    <div class="case" style="margin-bottom:.6rem">
+      <div class="head"><span class="who g">GraphQL</span><span class="verdict r">o erro desloca o resto</span></div>
+      <div class="io"><span class="src">user-profile-name</span><span class="arrow">▶</span>
+        <div class="stream">
+          <span class="tok ok"><span class="n">NAME</span><span class="v">user</span></span>
+          <span class="tok bad"><span class="n">NAME</span><span class="v">rofile</span></span>
+          <span class="tok bad"><span class="n">NAME</span><span class="v">ame</span></span>
+        </div>
+        <span class="note">o hífen some e leva a primeira letra junto</span></div>
     </div>
     <ul class="icons">
       <li><span class="e">🧩</span><div><b>Avaliar um lexer exige ler a sequência de tokens inteira</b>, não procurar mensagem de erro. Os 4 erros saíram todos do GraphQL, que não tem catch-all.</div></li>
@@ -831,10 +841,22 @@ $ ./run.sh     <span class="cm"># gera, compila, roda os 24</span>
     </div>
   </section>
 
+
+  <!-- ================= 16 · ENCERRAMENTO ================= -->
+  <section class="slide" id="s16">
+    <span class="slide-tag">// fim</span>
+    <div class="kicker">Obrigado</div>
+    <h1 class="title">Dois lexers prontos, <span class="accent">testes reais</span>, zero achismo</h1>
+    <p class="lead">Foi isso que descobrimos comparando <b>GraphQL.g4</b> e <b>SQLiteLexer.g4</b>
+      com 24 entradas rodadas no ANTLR 4.13.2.</p>
+    <div class="impact">Arthur &nbsp;·&nbsp; Eduardo &nbsp;·&nbsp; Ethan<br>Linguagens de Programação · PUCRS 2026/II</div>
+    <div class="speaker">bloco 4 · <b>todos</b></div>
+  </section>
+
 </div>
 
 <!-- chrome -->
-<div class="counter"><span class="cur" id="cur">01</span> / <span id="tot">15</span></div>
+<div class="counter"><span class="cur" id="cur">01</span> / <span id="tot">16</span></div>
 <div class="nav left"><button id="prev" aria-label="Slide anterior">←</button></div>
 <div class="nav right"><button id="next" aria-label="Próximo slide">→</button></div>
 
