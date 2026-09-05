@@ -156,9 +156,19 @@ deixa-las escapar para o `stderr`.
 
 ## Rodando um caso isolado
 
+Linux, macOS ou Git Bash:
+
 ```bash
 java -cp tools/antlr-4.13.2-complete.jar:gen/classes \
      DumpTokens GraphQL inputs/graphql/num_bad_1.txt
+```
+
+PowerShell no Windows: o separador e `;` e as aspas sao obrigatorias. Sem elas
+o PowerShell corta o comando no `;` e o java nao acha a classe
+(`Could not find or load main class DumpTokens`):
+
+```powershell
+java -cp "tools/antlr-4.13.2-complete.jar;gen/classes" DumpTokens GraphQL inputs/graphql/num_bad_1.txt
 ```
 
 Saida:
