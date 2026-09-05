@@ -1,0 +1,8 @@
+# Jar do ANTLR: baixado por ./setup.sh, nao versionado (2 MB)
+tools/*.jar
+
+# Codigo Java gerado pelo ANTLR e classes compiladas
+gen/
+
+# Saidas geradas por ./run.sh (regeraveis)
+out/
