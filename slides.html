@@ -10,7 +10,6 @@
 <style>
 :root{
   --bg:#0a0a0f;
-  --bg2:#0d0d18;
   --cyan:#00f5ff;
   --purple:#b44fff;
   --text:#e6e9f0;
@@ -23,7 +22,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:"IBM Plex Sans",system-ui,sans-serif}
 
-/* ===== background ===== */
+/* fundo */
 .bg-grid{
   position:fixed;inset:0;z-index:0;pointer-events:none;
   background-image:
@@ -37,12 +36,12 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .bg-glow.b{bottom:-20%;right:-10%;width:55vw;height:55vw;background:radial-gradient(circle,var(--purple),transparent 60%)}
 #particles{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-/* ===== deck / slides ===== */
+/* deck */
 .deck{position:relative;z-index:1;width:100vw;height:100vh}
 .slide{
   position:absolute;inset:0;
   display:flex;flex-direction:column;justify-content:center;
-  padding:5.5vh 7vw 9vh;
+  padding:6vh 7vw 10vh;
   opacity:0;visibility:hidden;
   transform:translateX(40px) scale(.99);
   transition:opacity .5s ease,transform .5s cubic-bezier(.16,.84,.44,1),visibility .5s;
@@ -50,7 +49,7 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .slide.active{opacity:1;visibility:visible;transform:translateX(0) scale(1)}
 .slide.prev{transform:translateX(-40px) scale(.99)}
 
-/* ===== typography ===== */
+/* tipografia */
 .kicker{
   font-family:"Space Mono",monospace;font-size:clamp(.7rem,1vw,.85rem);
   letter-spacing:.32em;text-transform:uppercase;color:var(--cyan);
@@ -59,170 +58,111 @@ html,body{height:100%;width:100%;overflow:hidden;background:var(--bg);color:var(
 .kicker::before{content:"";width:32px;height:1px;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
 h1.title{
   font-family:"Space Mono",monospace;font-weight:700;
-  font-size:clamp(1.5rem,3.1vw,2.9rem);line-height:1.08;
-  letter-spacing:-.01em;margin-bottom:1.3rem;
+  font-size:clamp(1.6rem,3.2vw,3rem);line-height:1.08;
+  letter-spacing:-.01em;margin-bottom:1.5rem;
   text-shadow:0 0 28px rgba(0,245,255,.35);
 }
 h1.title .accent{color:var(--cyan)}
-h1.title .accent2{color:var(--purple)}
-.lead{font-size:clamp(1rem,1.5vw,1.35rem);color:var(--text);max-width:62ch;line-height:1.55;font-weight:300}
+.lead{font-size:clamp(1rem,1.55vw,1.4rem);color:var(--text);max-width:62ch;line-height:1.55;font-weight:300}
+.lead b{font-weight:600;color:#fff}
 .dim{color:var(--dim)}
 .mono{font-family:"Space Mono",monospace}
+code{font-family:"Space Mono",monospace;font-size:.92em;color:#cfe9ff;background:rgba(255,255,255,.05);padding:.05em .35em;border-radius:4px}
 
-ul.points{list-style:none;display:flex;flex-direction:column;gap:.95rem;margin-top:.4rem;max-width:78ch}
+ul.points{list-style:none;display:flex;flex-direction:column;gap:1.05rem;margin-top:.5rem;max-width:80ch}
 ul.points li{
-  position:relative;padding-left:1.9rem;font-size:clamp(.9rem,1.28vw,1.12rem);
-  line-height:1.5;font-weight:300;color:var(--text);
+  position:relative;padding-left:1.9rem;font-size:clamp(.92rem,1.3vw,1.15rem);
+  line-height:1.5;font-weight:300;
 }
 ul.points li::before{
   content:"▸";position:absolute;left:0;top:.05em;color:var(--cyan);
   font-family:"Space Mono",monospace;text-shadow:0 0 8px var(--cyan);
 }
-ul.points li b,ul.points li strong{font-weight:600;color:#fff}
-ul.points.tight{gap:.7rem}
-ul.points.tight li{font-size:clamp(.82rem,1.12vw,1rem)}
-.hl-cyan{color:var(--cyan);font-weight:500}
-.hl-purple{color:var(--purple);font-weight:500}
-.hl-red{color:var(--red);font-weight:500}
-.hl-green{color:var(--green);font-weight:500}
-code{font-family:"Space Mono",monospace;font-size:.92em;color:#cfe9ff;background:rgba(255,255,255,.05);padding:.05em .35em;border-radius:4px}
+ul.points li b{font-weight:600;color:#fff}
 
-/* callout */
 .callout{
-  margin-top:1.3rem;padding:.9rem 1.2rem;border-radius:10px;
+  margin-top:1.4rem;padding:1rem 1.3rem;border-radius:10px;
   border:1px solid var(--line);background:linear-gradient(120deg,rgba(0,245,255,.06),rgba(180,79,255,.05));
-  font-family:"Space Mono",monospace;font-size:clamp(.76rem,1.02vw,.95rem);line-height:1.5;
+  font-family:"Space Mono",monospace;font-size:clamp(.78rem,1.05vw,.98rem);line-height:1.5;
   position:relative;overflow:hidden;
 }
 .callout::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(var(--cyan),var(--purple))}
 .callout.purple::before{background:var(--purple)}
-.callout.red::before{background:var(--red)}
 .callout b{color:#fff}
 
-/* layout */
-.cols{display:grid;grid-template-columns:1.05fr .95fr;gap:3vw;align-items:center;margin-top:.4rem}
-.cols.even{grid-template-columns:1fr 1fr}
-.cols.wide-left{grid-template-columns:1.3fr .7fr}
-@media(max-width:900px){.cols,.cols.even,.cols.wide-left{grid-template-columns:1fr;gap:1.5rem}}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:3vw;align-items:start;margin-top:.3rem}
+@media(max-width:900px){.cols{grid-template-columns:1fr;gap:1.4rem}}
 
-/* table */
-table.cmp{width:100%;border-collapse:collapse;font-size:clamp(.76rem,1.02vw,.96rem)}
-table.cmp th{
-  font-family:"Space Mono",monospace;text-align:left;padding:.5rem .8rem;
-  font-size:.85em;letter-spacing:.08em;text-transform:uppercase;
-}
-table.cmp th:nth-child(2){color:var(--cyan)}
-table.cmp th:nth-child(3){color:var(--purple)}
-table.cmp td{padding:.45rem .8rem;border-top:1px solid rgba(255,255,255,.07);font-weight:300}
-table.cmp td:first-child{color:var(--dim);font-family:"Space Mono",monospace;font-size:.9em}
-table.cmp tr:hover td{background:rgba(255,255,255,.02)}
-table.cmp td b{color:#fff;font-weight:600}
-
-/* cards */
-.cards{display:grid;gap:1rem;margin-top:.3rem}
-.cards.c3{grid-template-columns:repeat(3,1fr)}
-.cards.c2{grid-template-columns:repeat(2,1fr)}
-@media(max-width:900px){.cards.c3,.cards.c2{grid-template-columns:1fr}}
-.card{
-  background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:12px;
-  padding:1rem 1.15rem;transition:border-color .3s,transform .3s;
-}
-.card:hover{border-color:var(--line);transform:translateY(-3px)}
-.card h3{font-family:"Space Mono",monospace;font-size:.95rem;color:var(--cyan);margin-bottom:.45rem;font-weight:700}
-.card.p h3{color:var(--purple)}
-.card p{font-size:.86rem;font-weight:300;line-height:1.45;color:var(--text)}
-.card .ico{font-size:1.3rem;margin-bottom:.3rem;display:block}
-
-/* code */
+/* codigo */
 pre.code{
   font-family:"Space Mono",monospace;background:#06060c;border:1px solid var(--line);
-  border-radius:10px;padding:.9rem 1.1rem;font-size:clamp(.68rem,.92vw,.88rem);
-  line-height:1.6;color:#c8cddd;overflow:auto;box-shadow:0 0 30px rgba(0,245,255,.06) inset;
+  border-radius:10px;padding:.8rem 1rem;font-size:clamp(.68rem,.9vw,.86rem);
+  line-height:1.55;color:#c8cddd;overflow:auto;
 }
-pre.code .err{background:rgba(255,77,109,.18);color:#ff8095;border-bottom:1px dashed var(--red);padding:0 2px;border-radius:2px}
-pre.code .cm{color:#5a6178}
 pre.code .kw{color:var(--purple)}
-pre.code .ok{color:var(--green)}
-pre.code .tk{color:var(--cyan)}
-pre.code b{color:#fff}
-.code-label{font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-bottom:.35rem;display:block}
+pre.code .cm{color:#5a6178}
+.code-label{font-family:"Space Mono",monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:.4rem;display:block;color:var(--dim)}
 .code-label.g{color:var(--cyan)}
 .code-label.s{color:var(--purple)}
 
-/* ===== token chips ===== */
-.io{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:.3rem 0}
+/* tokens */
+.io{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:.25rem 0}
 .io .src{
-  font-family:"Space Mono",monospace;font-size:clamp(.76rem,1.05vw,.96rem);color:#fff;
-  border:1px dashed rgba(255,255,255,.25);border-radius:8px;padding:.4rem .65rem;background:rgba(255,255,255,.03);
+  font-family:"Space Mono",monospace;font-size:clamp(.76rem,1vw,.94rem);color:#fff;
+  border:1px dashed rgba(255,255,255,.25);border-radius:8px;padding:.38rem .6rem;background:rgba(255,255,255,.03);
 }
 .io .arrow{color:var(--dim);font-family:"Space Mono",monospace}
-.stream{display:flex;flex-wrap:wrap;gap:.4rem;align-items:stretch}
-.tok{
-  display:flex;flex-direction:column;gap:.08rem;padding:.32rem .55rem;border-radius:8px;
-  border:1px solid;font-family:"Space Mono",monospace;line-height:1.25;
-}
-.tok .n{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase}
-.tok .v{font-size:.82rem;color:#fff}
+.stream{display:flex;flex-wrap:wrap;gap:.4rem}
+.tok{display:flex;flex-direction:column;gap:.08rem;padding:.3rem .55rem;border-radius:8px;border:1px solid;font-family:"Space Mono",monospace;line-height:1.25}
+.tok .n{font-size:.57rem;letter-spacing:.1em;text-transform:uppercase}
+.tok .v{font-size:.8rem;color:#fff}
 .tok.ok{border-color:rgba(0,245,255,.45);background:rgba(0,245,255,.07)}
 .tok.ok .n{color:var(--cyan)}
 .tok.alt{border-color:rgba(180,79,255,.45);background:rgba(180,79,255,.07)}
 .tok.alt .n{color:var(--purple)}
 .tok.bad{border-color:rgba(255,77,109,.5);background:rgba(255,77,109,.09)}
 .tok.bad .n{color:var(--red)}
-.tok.hid{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.02);opacity:.65}
-.tok.hid .n{color:var(--dim)}
-.tok.none{border-color:rgba(255,255,255,.14);background:transparent;color:var(--dim);justify-content:center;padding:.5rem .8rem}
-.errline{
-  font-family:"Space Mono",monospace;font-size:.74rem;color:#ff8095;margin-top:.4rem;
-  display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;
-}
-.errline::before{content:"⚠";color:var(--red)}
-.verdict{font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;padding:.18rem .48rem;border-radius:5px}
+.tok.none{border-color:rgba(255,255,255,.14);background:transparent;color:var(--dim);padding:.45rem .75rem;justify-content:center}
+.errline{font-family:"Space Mono",monospace;font-size:.72rem;color:#ff8095;margin-top:.3rem}
+.errline.calm{color:var(--dim)}
+.errline b{color:#fff}
+.verdict{font-family:"Space Mono",monospace;font-size:.63rem;letter-spacing:.14em;text-transform:uppercase;padding:.16rem .45rem;border-radius:5px}
 .verdict.a{color:var(--green);border:1px solid rgba(62,230,134,.4);background:rgba(62,230,134,.08)}
 .verdict.r{color:var(--red);border:1px solid rgba(255,77,109,.4);background:rgba(255,77,109,.08)}
-.case{padding:.65rem 0;border-top:1px solid rgba(255,255,255,.07)}
+.case{padding:.55rem 0;border-top:1px solid rgba(255,255,255,.07)}
 .case:first-of-type{border-top:0}
-.case .head{display:flex;align-items:center;gap:.55rem;margin-bottom:.4rem;flex-wrap:wrap}
-.case .head .who{font-family:"Space Mono",monospace;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase}
+.case .head{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem;flex-wrap:wrap}
+.case .head .who{font-family:"Space Mono",monospace;font-size:.66rem;letter-spacing:.12em;text-transform:uppercase}
 .case .head .who.g{color:var(--cyan)}
 .case .head .who.s{color:var(--purple)}
-.note{font-family:"Space Mono",monospace;font-size:.7rem;color:var(--dim)}
+.note{font-family:"Space Mono",monospace;font-size:.68rem;color:var(--dim)}
 
 /* pipeline */
-.pipe{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;margin:.4rem 0 .2rem}
-.pipe .box{
-  font-family:"Space Mono",monospace;border:1px solid var(--line);border-radius:10px;
-  padding:.65rem .85rem;background:var(--card);text-align:center;font-size:.78rem;
-}
-.pipe .box b{display:block;color:var(--cyan);font-size:.88rem;margin-bottom:.15rem}
+.pipe{display:flex;align-items:center;justify-content:center;gap:.7rem;flex-wrap:wrap;margin:1rem 0 .4rem}
+.pipe .box{font-family:"Space Mono",monospace;border:1px solid var(--line);border-radius:10px;padding:.8rem 1rem;background:var(--card);text-align:center;font-size:.82rem}
+.pipe .box b{display:block;color:var(--cyan);font-size:.95rem;margin-bottom:.2rem}
 .pipe .box.mine{border-color:rgba(180,79,255,.4)}
 .pipe .box.mine b{color:var(--purple)}
-.pipe .box.off{opacity:.45}
+.pipe .box.off{opacity:.4}
 .pipe .to{color:var(--cyan);font-family:"Space Mono",monospace;animation:bob 1.6s ease-in-out infinite}
 
-/* icon list */
-ul.icons{list-style:none;display:flex;flex-direction:column;gap:.95rem;max-width:86ch}
-ul.icons li{display:flex;gap:1rem;align-items:flex-start;font-weight:300;font-size:clamp(.85rem,1.18vw,1.05rem);line-height:1.5}
-ul.icons li .e{font-size:1.35rem;flex:none;line-height:1.2;filter:drop-shadow(0 0 6px rgba(0,245,255,.4))}
-ul.icons li b{color:#fff;font-weight:600}
+table.cmp{width:100%;border-collapse:collapse;font-size:clamp(.8rem,1.05vw,1rem);margin-top:.4rem}
+table.cmp th{font-family:"Space Mono",monospace;text-align:left;padding:.5rem .8rem;font-size:.85em;letter-spacing:.08em;text-transform:uppercase}
+table.cmp th:nth-child(2){color:var(--cyan)}
+table.cmp th:nth-child(3){color:var(--purple)}
+table.cmp td{padding:.5rem .8rem;border-top:1px solid rgba(255,255,255,.07);font-weight:300}
+table.cmp td:first-child{color:var(--dim);font-family:"Space Mono",monospace;font-size:.9em}
+table.cmp td b{color:#fff;font-weight:600}
 
-/* impact */
 .impact{
-  margin-top:1.4rem;font-family:"Space Mono",monospace;
-  font-size:clamp(.9rem,1.6vw,1.35rem);line-height:1.55;
+  margin-top:1.6rem;font-family:"Space Mono",monospace;
+  font-size:clamp(.95rem,1.7vw,1.4rem);line-height:1.55;
   background:linear-gradient(100deg,var(--cyan),var(--purple));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  text-shadow:0 0 40px rgba(0,245,255,.15);max-width:66ch;
+  -webkit-background-clip:text;background-clip:text;color:transparent;max-width:66ch;
 }
 
-/* refs */
-ul.refs{list-style:none;display:flex;flex-direction:column;gap:.8rem;max-width:92ch}
-ul.refs li{padding-left:1.4rem;position:relative;font-weight:300;line-height:1.45;font-size:clamp(.82rem,1.1vw,1rem);color:var(--text)}
-ul.refs li::before{content:"§";position:absolute;left:0;color:var(--purple);font-family:"Space Mono",monospace}
-
-/* cover */
-#s1{justify-content:center;text-align:left}
-/* canvas e elemento substituido: inset:0 sozinho nao estica, precisa de width/height */
+/* capa */
+#s1{justify-content:center}
 .cover-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-1;opacity:.38}
 .cover-inner{position:relative;z-index:2;max-width:82ch}
 .cover-meta{margin-top:2.2rem;display:flex;flex-direction:column;gap:.45rem;font-family:"Space Mono",monospace;font-size:clamp(.75rem,1vw,.95rem)}
@@ -232,33 +172,15 @@ ul.refs li::before{content:"§";position:absolute;left:0;color:var(--purple);fon
 .title-xl{font-size:clamp(2rem,5.4vw,4.6rem);line-height:1;letter-spacing:-.02em}
 .vs{color:var(--dim);font-size:.5em;vertical-align:middle;padding:0 .25em}
 
-/* figures */
 svg{max-width:100%;height:auto;display:block}
-.fig-cap{font-family:"Space Mono",monospace;font-size:.68rem;color:var(--dim);letter-spacing:.1em;margin-top:.5rem;text-align:center}
-.center-fig{display:flex;flex-direction:column;align-items:center;justify-content:center}
-.rail{border:1px solid var(--line);border-radius:12px;background:#f7f9ff;padding:.7rem;box-shadow:0 0 30px rgba(0,245,255,.07);width:100%}
-.rail img{width:100%;border-radius:6px;display:block}
-
-/* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:.6rem}
-@media(max-width:900px){.stats{grid-template-columns:repeat(2,1fr)}}
-.stat{border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:.85rem 1rem;background:var(--card);text-align:center}
-.stat .num{font-family:"Space Mono",monospace;font-size:clamp(1.4rem,2.6vw,2.2rem);font-weight:700;color:var(--cyan);text-shadow:0 0 20px rgba(0,245,255,.35)}
-.stat.p .num{color:var(--purple);text-shadow:0 0 20px rgba(180,79,255,.35)}
-.stat.r .num{color:var(--red);text-shadow:0 0 20px rgba(255,77,109,.3)}
-.stat .lab{font-size:.72rem;color:var(--dim);margin-top:.2rem;line-height:1.35}
-.stat .lab b{color:var(--text);font-weight:500}
+.fig-cap{font-family:"Space Mono",monospace;font-size:.66rem;color:var(--dim);letter-spacing:.1em;margin-top:.5rem}
 
 /* chrome */
 .progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--purple));z-index:50;width:0;transition:width .5s ease;box-shadow:0 0 12px var(--cyan)}
-.counter{
-  position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:50;
-  font-family:"Space Mono",monospace;font-size:.8rem;letter-spacing:.15em;color:var(--dim);
-  display:flex;align-items:center;gap:.6rem;
-}
+.counter{position:fixed;bottom:1.4rem;left:50%;transform:translateX(-50%);z-index:50;font-family:"Space Mono",monospace;font-size:.8rem;letter-spacing:.15em;color:var(--dim)}
 .counter .cur{color:var(--cyan);font-weight:700}
 .nav{position:fixed;bottom:1.1rem;z-index:50;display:flex;gap:.5rem}
-.nav.left{right:auto;left:1.6rem}
+.nav.left{left:1.6rem}
 .nav.right{right:1.6rem}
 .nav button{
   font-family:"Space Mono",monospace;background:rgba(255,255,255,.04);
@@ -274,38 +196,20 @@ svg{max-width:100%;height:auto;display:block}
   padding:.35rem .7rem;border-radius:6px;background:rgba(255,255,255,.02);
 }
 .hint b{color:var(--cyan)}
-.slide-tag{
-  position:absolute;top:5.5vh;right:7vw;font-family:"Space Mono",monospace;
-  font-size:.72rem;color:var(--dim);letter-spacing:.2em;opacity:.6;
-}
 .speaker{
   position:absolute;bottom:8vh;left:7vw;font-family:"Space Mono",monospace;
   font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);opacity:.75;
 }
 .speaker b{color:var(--cyan);font-weight:400}
 
-/* animations */
-@keyframes glitch{
-  0%,90%,100%{text-shadow:0 0 28px rgba(0,245,255,.35)}
-  92%{text-shadow:-3px 0 var(--purple),3px 0 var(--cyan),0 0 28px rgba(0,245,255,.35)}
-  94%{text-shadow:3px 0 var(--purple),-3px 0 var(--cyan)}
-  96%{text-shadow:-2px 0 var(--cyan),2px 0 var(--purple)}
-  98%{text-shadow:0 0 28px rgba(0,245,255,.35)}
-}
-.slide.active h1.title{animation:glitch 7s infinite}
+/* animacoes */
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes riseIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-.slide.active ul.points li,.slide.active ul.icons li,.slide.active .card,
-.slide.active .case,.slide.active .stat,.slide.active ul.refs li{animation:riseIn .5s both}
-.slide.active ul.points li:nth-child(1),.slide.active .card:nth-child(1),.slide.active .case:nth-child(1),.slide.active .stat:nth-child(1),.slide.active ul.refs li:nth-child(1),.slide.active ul.icons li:nth-child(1){animation-delay:.05s}
-.slide.active ul.points li:nth-child(2),.slide.active .card:nth-child(2),.slide.active .case:nth-child(2),.slide.active .stat:nth-child(2),.slide.active ul.refs li:nth-child(2),.slide.active ul.icons li:nth-child(2){animation-delay:.16s}
-.slide.active ul.points li:nth-child(3),.slide.active .card:nth-child(3),.slide.active .case:nth-child(3),.slide.active .stat:nth-child(3),.slide.active ul.refs li:nth-child(3),.slide.active ul.icons li:nth-child(3){animation-delay:.27s}
-.slide.active ul.points li:nth-child(4),.slide.active .case:nth-child(4),.slide.active .stat:nth-child(4),.slide.active ul.refs li:nth-child(4),.slide.active ul.icons li:nth-child(4){animation-delay:.38s}
-.slide.active ul.points li:nth-child(5),.slide.active ul.refs li:nth-child(5){animation-delay:.49s}
-.slide.active .stream .tok{animation:riseIn .4s both}
-.slide.active .stream .tok:nth-child(2){animation-delay:.08s}
-.slide.active .stream .tok:nth-child(3){animation-delay:.16s}
-.slide.active .stream .tok:nth-child(4){animation-delay:.24s}
+.slide.active ul.points li,.slide.active .case{animation:riseIn .5s both}
+.slide.active ul.points li:nth-child(1),.slide.active .case:nth-child(1){animation-delay:.05s}
+.slide.active ul.points li:nth-child(2),.slide.active .case:nth-child(2){animation-delay:.16s}
+.slide.active ul.points li:nth-child(3),.slide.active .case:nth-child(3){animation-delay:.27s}
+.slide.active ul.points li:nth-child(4),.slide.active .case:nth-child(4){animation-delay:.38s}
 </style>
 </head>
 <body>
@@ -324,9 +228,7 @@ svg{max-width:100%;height:auto;display:block}
     <div class="cover-inner">
       <div class="kicker">Trabalho Prático 1 · ANTLR 4.13.2</div>
       <h1 class="title title-xl">GraphQL<span class="vs">×</span><span class="accent">SQLite</span></h1>
-      <p class="lead">Dois analisadores léxicos prontos, três regras equivalentes,
-        24 entradas reais. O que muda quando duas linguagens resolvem
-        <span class="hl-cyan">o mesmo problema léxico</span> de formas opostas.</p>
+      <p class="lead">Comparação de dois analisadores léxicos prontos.</p>
       <div class="cover-meta">
         <span class="disc">Linguagens de Programação · PUCRS Escola Politécnica · 2026/II</span>
         <span class="team">Integrantes: <b>Arthur Mello Pimentel</b> &nbsp;·&nbsp; <b>Eduardo Alcaria Lopes</b> &nbsp;·&nbsp; <b>Ethan Soares S. da Rosa</b></span>
@@ -336,527 +238,313 @@ svg{max-width:100%;height:auto;display:block}
 
   <!-- ================= 2 · O QUE É UM LEXER ================= -->
   <section class="slide" id="s2">
-    <span class="slide-tag">// introdução</span>
-    <div class="kicker">O problema</div>
-    <h1 class="title">O lexer decide <span class="accent">onde uma palavra termina</span></h1>
+    <div class="kicker">O que é um lexer</div>
+    <h1 class="title">Ele corta o texto em <span class="accent">tokens</span></h1>
+    <p class="lead">O analisador léxico lê o código caractere por caractere e agrupa em
+      <b>tokens</b> — as menores partes com significado: um nome, um número, um texto.</p>
     <div class="pipe">
-      <div class="box"><b>texto fonte</b><span class="dim mono">10_000.00</span></div>
+      <div class="box"><b>texto</b><span class="dim mono">10_000.00</span></div>
       <span class="to">▶</span>
       <div class="box mine"><b>LEXER</b><span class="dim mono">regras de token</span></div>
       <span class="to">▶</span>
-      <div class="box"><b>tokens</b><span class="dim mono">NUMERIC_LITERAL</span></div>
+      <div class="box"><b>token</b><span class="dim mono">NUMERIC_LITERAL</span></div>
       <span class="to">▶</span>
-      <div class="box off"><b>parser</b><span class="dim mono">fora do escopo</span></div>
+      <div class="box off"><b>parser</b><span class="dim mono">fora do trabalho</span></div>
     </div>
     <ul class="points">
-      <li>O lexer corta o texto em <b>tokens</b> e nada mais. Ele não sabe o que é uma consulta válida, só o que é um número, um nome ou uma string.</li>
-      <li>O algoritmo é <span class="hl-cyan">maximal munch</span>: consome o maior prefixo que alguma regra reconhece, emite o token e recomeça dali.</li>
-      <li>Empate de tamanho é resolvido pela <b>ordem de declaração</b> no arquivo <code>.g4</code> — quem vem antes vence.</li>
-      <li>Por isso <b>"entrada rejeitada" raramente é uma mensagem de erro</b>: quase sempre é só uma quebra diferente do fluxo de tokens.</li>
-      <li>Escopo do trabalho: <b>só a parte léxica</b> — nada de parser, nada de compilador completo. Só como cada gramática corta o texto em tokens.</li>
+      <li>Ele não sabe se a consulta faz sentido. Só sabe dizer o que é nome, o que é número e o que é texto.</li>
+      <li>As regras ficam num arquivo <code>.g4</code> e o <b>ANTLR4</b> gera o lexer em Java a partir delas.</li>
     </ul>
-    <div class="callout">Duas gramáticas do repositório oficial <b>grammars-v4</b>, sem modificar uma linha delas. Reserva registrada no fórum do Moodle em <b>01/09/2026</b>.</div>
     <div class="speaker">bloco 1 · <b>Arthur</b></div>
   </section>
 
-  <!-- ================= 3 · OS DOIS ANALISADORES ================= -->
+  <!-- ================= 3 · OBJETIVO ================= -->
   <section class="slide" id="s3">
-    <span class="slide-tag">// os dois lexers</span>
-    <div class="kicker">Escolha do par</div>
-    <h1 class="title">Minimalista <span class="dim">contra</span> <span class="accent2">pragmático</span></h1>
-    <table class="cmp">
-      <tr><th></th><th>GraphQL.g4</th><th>SQLiteLexer.g4</th></tr>
-      <tr><td>tipo</td><td>gramática combinada (parser + lexer)</td><td><b>lexer grammar</b> pura</td></tr>
-      <tr><td>linhas</td><td>570 (léxico a partir da 445)</td><td>245</td></tr>
-      <tr><td>autoria</td><td>grammars-v4, spec GraphQL Oct/2021</td><td>Bart Kiers / Martin Mirchev (MIT)</td></tr>
-      <tr><td>options</td><td>nenhuma</td><td><b>caseInsensitive = true</b></td></tr>
-      <tr><td>tokens</td><td>14 (+ 12 <code>fragment</code> nomeados)</td><td>188, a maioria palavras-reservadas</td></tr>
-      <tr><td>reservadas</td><td>literais dentro do <b>parser</b></td><td>~180 tokens <b>antes</b> de IDENTIFIER</td></tr>
-      <tr><td>catch-all</td><td><span class="hl-red">não possui</span></td><td><code>UNEXPECTED_CHAR : . ;</code></td></tr>
-    </table>
-    <div class="callout purple">As duas resolvem as <b>mesmas três categorias</b> — identificador, número e texto — com estratégias opostas. É isso que torna a comparação concreta em vez de superficial.</div>
+    <div class="kicker">Objetivo do trabalho</div>
+    <h1 class="title">Comparar dois lexers, <span class="accent">não escrever um</span></h1>
+    <ul class="points">
+      <li>Escolher <b>dois analisadores léxicos prontos</b> feitos em ANTLR4 e comparar como cada um trata as mesmas categorias de token.</li>
+      <li>Para cada regra: <b>duas entradas aceitas e duas rejeitadas</b>, explicando o que o ANTLR4 devolve.</li>
+      <li>Desenhar o <b>diagrama de sintaxe</b> das regras e comparar os desenhos.</li>
+      <li>Foco só na parte léxica — nada de parser ou compilador.</li>
+    </ul>
+    <div class="callout">Escolhemos <b>GraphQL.g4</b> e <b>SQLiteLexer.g4</b>, do repositório oficial <b>grammars-v4</b>. Reservados no fórum do Moodle em 01/09/2026.</div>
     <div class="speaker">bloco 1 · <b>Arthur</b></div>
   </section>
 
-  <!-- ================= 4 · METODOLOGIA ================= -->
+  <!-- ================= 4 · O QUE FIZEMOS ================= -->
   <section class="slide" id="s4">
-    <span class="slide-tag">// metodologia</span>
-    <div class="kicker">Como rodamos</div>
-    <h1 class="title">Nenhum resultado <span class="accent">escrito à mão</span></h1>
+    <div class="kicker">O que fizemos</div>
+    <h1 class="title">Três regras, <span class="accent">24 entradas</span>, tudo rodado</h1>
     <div class="cols">
       <div>
-        <ul class="points tight">
-          <li><code>./setup.sh</code> baixa o ANTLR 4.13.2 e o PlantUML dentro do projeto — sem depender do CLASSPATH da máquina.</li>
-          <li><code>./run.sh</code> gera os lexers, compila e executa <b>os 24 casos</b> descritos em <code>inputs/casos.tsv</code>.</li>
-          <li><code>DumpTokens.java</code> instala um <b>BaseErrorListener</b> próprio: captura <code>token recognition error</code> em vez de deixar escapar pro stderr.</li>
-          <li>Toda tabela deste deck vem de <code>out/tabela-tokens.md</code>, gerado pela execução real.</li>
+        <ul class="points">
+          <li>Pegamos as <b>três categorias que existem nos dois</b> lexers: identificador, número e texto.</li>
+          <li>Escrevemos <b>24 arquivos de entrada</b> — 3 regras × 4 casos × 2 lexers — e rodamos todos no ANTLR 4.13.2.</li>
+          <li>Um script (<code>./run.sh</code>) gera os lexers, compila e imprime os tokens de cada entrada. <b>Nenhum resultado foi escrito à mão.</b></li>
+          <li>Desenhamos o diagrama de ferrovia das seis regras.</li>
         </ul>
       </div>
       <div>
-        <span class="code-label">terminal</span>
-        <pre class="code"><span class="cm"># um caso isolado</span>
-$ java -cp ...:gen/classes \
-    DumpTokens GraphQL num_bad_1.txt
-
-<span class="tk">ENTRADA</span>  : 10_000.00
-<span class="tk">GRAMATICA</span>: GraphQL
-<span class="tk">TOKENS</span>   : 3
-  <b>INT</b>                '10'
-  <b>NAME</b>               '_000'
-  <b>INT</b>                '0'
-<span class="tk">ERROS</span>    : 1
-  <span class="err">line 1:6 token recognition error at: '.0'</span></pre>
+        <table class="cmp">
+          <tr><th>regra</th><th>GraphQL</th><th>SQLite</th></tr>
+          <tr><td>identificador</td><td><b>NAME</b></td><td><b>IDENTIFIER</b></td></tr>
+          <tr><td>número</td><td><b>INT</b> / <b>FLOAT</b></td><td><b>NUMERIC_LITERAL</b></td></tr>
+          <tr><td>texto</td><td><b>STRING</b></td><td><b>STRING_LITERAL</b></td></tr>
+        </table>
+        <div class="callout purple">GraphQL é uma gramática <b>combinada</b> (parser + lexer juntos). SQLite é uma <b>lexer grammar</b> pura, com ~180 palavras-reservadas.</div>
       </div>
-    </div>
-    <div class="stats">
-      <div class="stat"><div class="num">24</div><div class="lab">casos de teste<br>3 regras × 4 × 2 lexers</div></div>
-      <div class="stat p"><div class="num">2</div><div class="lab">gramáticas originais<br><b>sem modificação</b></div></div>
-      <div class="stat"><div class="num">3</div><div class="lab">ferramentas de<br>diagrama comparadas</div></div>
-      <div class="stat r"><div class="num">4</div><div class="lab">defeitos encontrados<br>na leitura das regras</div></div>
     </div>
     <div class="speaker">bloco 1 · <b>Arthur</b></div>
   </section>
 
-  <!-- ================= 5 · IDENTIFICADOR: REGRAS ================= -->
+  <!-- ================= 5 · RESULTADO 1 ================= -->
   <section class="slide" id="s5">
-    <span class="slide-tag">// regra 1 de 3</span>
-    <div class="kicker">Identificador</div>
-    <h1 class="title">Uma forma <span class="dim">contra</span> <span class="accent2">quatro formas</span></h1>
-    <div class="cols even" style="align-items:start">
+    <div class="kicker">Resultado 1 de 3 · identificador</div>
+    <h1 class="title">A mesma aspa, <span class="accent">categorias opostas</span></h1>
+    <div class="cols">
       <div>
-        <span class="code-label g">GraphQL.g4:445</span>
+        <span class="code-label g">GraphQL · NAME</span>
         <pre class="code"><span class="kw">NAME</span> : [_A-Za-z] [_0-9A-Za-z]* ;</pre>
-        <ul class="points tight" style="margin-top:.9rem">
-          <li>ASCII estrito, uma única forma, sem delimitador.</li>
-          <li>Caixa escrita <b>na mão</b>: <code>[_A-Za-z]</code>.</li>
-          <li><code>query</code> e <code>fragment</code> são <b>NAME válidos</b> — as reservadas moram no parser, não no lexer.</li>
-        </ul>
+        <div class="case">
+          <div class="head"><span class="who g">aceita</span><span class="verdict a">1 token cada</span></div>
+          <div class="io"><span class="src">userProfile_2024</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok ok"><span class="n">NAME</span><span class="v">userProfile_2024</span></span></div></div>
+          <div class="io"><span class="src">_internalFieldName</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok ok"><span class="n">NAME</span><span class="v">_internalFieldName</span></span></div></div>
+        </div>
+        <div class="case">
+          <div class="head"><span class="who g">rejeita</span><span class="verdict r">2 erros</span></div>
+          <div class="io"><span class="src">user-profile-name</span><span class="arrow">▶</span>
+            <div class="stream">
+              <span class="tok ok"><span class="n">NAME</span><span class="v">user</span></span>
+              <span class="tok bad"><span class="n">NAME</span><span class="v">rofile</span></span>
+              <span class="tok bad"><span class="n">NAME</span><span class="v">ame</span></span>
+            </div></div>
+          <div class="errline">o hífen dá erro e leva a letra seguinte junto</div>
+        </div>
       </div>
       <div>
-        <span class="code-label s">SQLiteLexer.g4:216</span>
+        <span class="code-label s">SQLite · IDENTIFIER</span>
         <pre class="code"><span class="kw">IDENTIFIER</span>:
     '"' (~'"' | '""')* '"'
   | '`' (~'`' | '``')* '`'
   | '[' ~']'* ']'
-  | [A-Z_\u007F-\uFFFF] [A-Z_0-9\u007F-\uFFFF]*
-;</pre>
-        <ul class="points tight" style="margin-top:.9rem">
-          <li>Três formas delimitadas + uma nua; aceita <b>espaço e unicode</b>.</li>
-          <li><code>caseInsensitive</code> faz <code>[A-Z]</code> casar minúscula: o arquivo <b>engana</b> quem lê rápido.</li>
-          <li>Escape por <b>duplicação</b> (<code>""</code>) — menos na forma <code>[...]</code>, que não tem escape nenhum.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="callout">Como <code>IDENTIFIER</code> vem <b>depois</b> das ~180 keywords, <code>select</code> vira o token <code>SELECT_</code>, não identificador. Uma coluna chamada <code>select</code> exige delimitador; em GraphQL, um campo <code>query</code> não exige nada.</div>
-    <div class="speaker">bloco 2 · <b>Eduardo</b></div>
-  </section>
-
-  <!-- ================= 6 · IDENTIFICADOR: RESULTADOS ================= -->
-  <section class="slide" id="s6">
-    <span class="slide-tag">// resultados</span>
-    <div class="kicker">Identificador · ANTLR4</div>
-    <h1 class="title">A mesma aspa, <span class="accent">categorias opostas</span></h1>
-    <div class="cols even" style="align-items:start">
-      <div>
+  | [A-Z_...] [A-Z_0-9...]* ;</pre>
         <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict a">aceita</span></div>
-          <div class="io"><span class="src">userProfile_2024</span><span class="arrow">▶</span>
-            <div class="stream"><span class="tok ok"><span class="n">NAME</span><span class="v">userProfile_2024</span></span></div></div>
-        </div>
-        <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict a">aceita</span><span class="note">underscore pode abrir</span></div>
-          <div class="io"><span class="src">_internalFieldName</span><span class="arrow">▶</span>
-            <div class="stream"><span class="tok ok"><span class="n">NAME</span><span class="v">_internalFieldName</span></span></div></div>
-        </div>
-      </div>
-      <div>
-        <div class="case">
-          <div class="head"><span class="who s">SQLite</span><span class="verdict a">aceita</span><span class="note">espaço dentro, via aspas duplas</span></div>
+          <div class="head"><span class="who s">aceita</span><span class="verdict a">1 token cada</span><span class="note">aceita espaço dentro</span></div>
           <div class="io"><span class="src">"minha coluna"</span><span class="arrow">▶</span>
             <div class="stream"><span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">"minha coluna"</span></span></div></div>
-        </div>
-        <div class="case">
-          <div class="head"><span class="who s">SQLite</span><span class="verdict a">aceita</span><span class="note">forma [...] herdada do T-SQL</span></div>
           <div class="io"><span class="src">[Order Details]</span><span class="arrow">▶</span>
             <div class="stream"><span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">[Order Details]</span></span></div></div>
         </div>
+        <div class="case">
+          <div class="head"><span class="who s">rejeita</span><span class="verdict r">0 erros</span></div>
+          <div class="io"><span class="src">'minha coluna'</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok bad"><span class="n">STRING_LITERAL</span><span class="v">'minha coluna'</span></span></div></div>
+          <div class="errline calm">aspa simples em SQLite é <b>string</b>, não identificador</div>
+        </div>
       </div>
     </div>
-    <div class="cols even" style="align-items:start;margin-top:.2rem">
-      <div class="case">
-        <div class="head"><span class="who s">SQLite</span><span class="verdict r">esperávamos erro</span></div>
-        <div class="io"><span class="src">'minha coluna'</span><span class="arrow">▶</span>
-          <div class="stream"><span class="tok bad"><span class="n">STRING_LITERAL</span><span class="v">'minha coluna'</span></span></div></div>
-        <div class="errline" style="color:var(--dim)">zero erros — aspa simples em SQLite é <b>string</b>, não identificador</div>
-      </div>
-      <div class="case">
-        <div class="head"><span class="who s">SQLite</span><span class="verdict r">e o inverso também</span></div>
-        <div class="io"><span class="src">"texto simples"</span><span class="arrow">▶</span>
-          <div class="stream"><span class="tok bad"><span class="n">IDENTIFIER</span><span class="v">"texto simples"</span></span></div></div>
-        <div class="errline" style="color:var(--dim)">em GraphQL, a mesma entrada seria <b>STRING</b></div>
-      </div>
-    </div>
-    <div class="callout">O mesmo caractere delimitador leva a <b>categorias léxicas opostas</b> nas duas gramáticas.</div>
+    <div class="callout"><b>"minha coluna"</b> é identificador no SQLite e string no GraphQL. O mesmo delimitador significa coisas opostas nas duas linguagens.</div>
     <div class="speaker">bloco 2 · <b>Eduardo</b></div>
   </section>
 
-  <!-- ================= 7 · NÚMERO: REGRAS ================= -->
-  <section class="slide" id="s7">
-    <span class="slide-tag">// regra 2 de 3</span>
-    <div class="kicker">Número</div>
-    <h1 class="title">Oito fragments <span class="dim">contra</span> <span class="accent2">uma regex só</span></h1>
-    <div class="cols even" style="align-items:start">
+  <!-- ================= 6 · RESULTADO 2 ================= -->
+  <section class="slide" id="s6">
+    <div class="kicker">Resultado 2 de 3 · número</div>
+    <h1 class="title">O mesmo número, <span class="accent">um token ou três</span></h1>
+    <div class="cols">
       <div>
-        <span class="code-label g">GraphQL.g4:507</span>
-        <pre class="code"><span class="kw">FLOAT</span>
-  : INT FRACTIONAL_PART
-  | INT EXPONENTIAL_PART
-  | INT FRACTIONAL_PART EXPONENTIAL_PART ;
-
-<span class="kw">INT</span>
-  : NEGATIVE_SIGN? '0'
-  | NEGATIVE_SIGN? NONZERO_DIGIT DIGIT* ;</pre>
-      </div>
-      <div>
-        <span class="code-label s">SQLiteLexer.g4:223</span>
-        <pre class="code"><span class="kw">NUMERIC_LITERAL</span>:
-  (DIGIT+ ('_' DIGIT+)*
-     ('.' (DIGIT+ ('_' DIGIT+)*)?)?
-   | '.' DIGIT+ ('_' DIGIT+)*)
-  ('E' [-+]? DIGIT+ ('_' DIGIT+)*)?
-  | '0x' HEX_DIGIT+ ('_' HEX_DIGIT+)* ;</pre>
-      </div>
-    </div>
-    <table class="cmp" style="margin-top:1.1rem">
-      <tr><th>aspecto</th><th>GraphQL</th><th>SQLite</th></tr>
-      <tr><td>sinal</td><td><b>dentro</b> do token</td><td>fora — vira o token <code>MINUS</code></td></tr>
-      <tr><td>zeros à esquerda</td><td>proibidos (<code>NONZERO_DIGIT</code>)</td><td>permitidos</td></tr>
-      <tr><td>separador de grupo</td><td>nenhum</td><td><code>_</code> entre grupos de dígitos</td></tr>
-      <tr><td>hexadecimal</td><td>ausente</td><td><code>0x</code> + dígitos hex</td></tr>
-      <tr><td>int e float</td><td><b>dois</b> tokens distintos</td><td><b>um</b> token só</td></tr>
-    </table>
-    <div class="speaker">bloco 2 · <b>Ethan</b></div>
-  </section>
-
-  <!-- ================= 8 · NÚMERO: 10_000.00 ================= -->
-  <section class="slide" id="s8">
-    <span class="slide-tag">// o caso do enunciado</span>
-    <div class="kicker">Número · ANTLR4</div>
-    <h1 class="title"><span class="mono">10_000.00</span> separa os dois <span class="accent">de forma limpa</span></h1>
-    <div class="case">
-      <div class="head"><span class="who s">SQLite</span><span class="verdict a">aceita</span></div>
-      <div class="io"><span class="src">10_000.00</span><span class="arrow">▶</span>
-        <div class="stream"><span class="tok alt"><span class="n">NUMERIC_LITERAL</span><span class="v">10_000.00</span></span></div>
-        <span class="note">1 token · 0 erros</span></div>
-    </div>
-    <div class="case">
-      <div class="head"><span class="who g">GraphQL</span><span class="verdict r">rejeita</span></div>
-      <div class="io"><span class="src">10_000.00</span><span class="arrow">▶</span>
-        <div class="stream">
-          <span class="tok ok"><span class="n">INT</span><span class="v">10</span></span>
-          <span class="tok bad"><span class="n">NAME</span><span class="v">_000</span></span>
-          <span class="tok bad"><span class="n">INT</span><span class="v">0</span></span>
-        </div>
-        <span class="note">3 tokens · 1 erro</span></div>
-      <div class="errline">line 1:6 token recognition error at: '.0'</div>
-    </div>
-    <ul class="points tight" style="margin-top:.5rem">
-      <li><code>10</code> vira INT e para: <code>_</code> não é dígito. Aí <code>_000</code> casa <b>NAME</b>, porque underscore <b>inicia identificador</b> em GraphQL.</li>
-      <li>Sobra <code>.00</code>: o ponto sozinho não pertence a token nenhum — <code>PUNCTUATOR</code> só tem <code>'...'</code>.</li>
-      <li>O <code>recover()</code> descarta os dois caracteres reportados e resta <code>0</code>, um INT.</li>
-    </ul>
-    <div class="callout red">Um separador de milhar inofensivo produz um fluxo de tokens <b>irreconhecível para o parser</b>.</div>
-    <div class="speaker">bloco 2 · <b>Ethan</b></div>
-  </section>
-
-  <!-- ================= 9 · NÚMERO: SINAL ================= -->
-  <section class="slide" id="s9">
-    <span class="slide-tag">// achado</span>
-    <div class="kicker">Número · fronteira lexer/parser</div>
-    <h1 class="title">Em GraphQL o <span class="accent">menos some</span> no lexer</h1>
-    <div class="cols even" style="align-items:start">
-      <div>
+        <span class="code-label g">GraphQL · INT / FLOAT</span>
+        <pre class="code"><span class="kw">INT</span>   : '-'? '0' | '-'? [1-9] [0-9]* ;
+<span class="kw">FLOAT</span> : INT FRACTIONAL_PART
+      | INT EXPONENTIAL_PART ... ;</pre>
         <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict a">aceita</span><span class="note">sinal dentro do token</span></div>
+          <div class="head"><span class="who g">aceita</span><span class="verdict a">1 token</span><span class="note">o sinal fica dentro</span></div>
           <div class="io"><span class="src">-3.14e+08</span><span class="arrow">▶</span>
             <div class="stream"><span class="tok ok"><span class="n">FLOAT</span><span class="v">-3.14e+08</span></span></div></div>
         </div>
         <div class="case">
-          <div class="head"><span class="who g">GraphQL</span><span class="verdict r">consequência</span></div>
-          <div class="io"><span class="src">10-5</span><span class="arrow">▶</span>
+          <div class="head"><span class="who g">rejeita</span><span class="verdict r">3 tokens + 1 erro</span></div>
+          <div class="io"><span class="src">10_000.00</span><span class="arrow">▶</span>
             <div class="stream">
               <span class="tok ok"><span class="n">INT</span><span class="v">10</span></span>
-              <span class="tok bad"><span class="n">INT</span><span class="v">-5</span></span>
+              <span class="tok bad"><span class="n">NAME</span><span class="v">_000</span></span>
+              <span class="tok bad"><span class="n">INT</span><span class="v">0</span></span>
             </div></div>
-          <div class="errline" style="color:var(--dim)">o operador de subtração <b>desaparece no lexer</b></div>
+          <div class="errline">line 1:6 token recognition error at: '.0'</div>
         </div>
       </div>
       <div>
+        <span class="code-label s">SQLite · NUMERIC_LITERAL</span>
+        <pre class="code"><span class="kw">NUMERIC_LITERAL</span>:
+    DIGIT+ ('_' DIGIT+)* ('.' ...)? ...
+  | '0x' HEX_DIGIT+ ('_' HEX_DIGIT+)* ;</pre>
         <div class="case">
-          <div class="head"><span class="who s">SQLite</span><span class="verdict r">sinal fora do literal</span></div>
+          <div class="head"><span class="who s">aceita</span><span class="verdict a">1 token cada</span><span class="note">underscore separa milhar</span></div>
+          <div class="io"><span class="src">10_000.00</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok alt"><span class="n">NUMERIC_LITERAL</span><span class="v">10_000.00</span></span></div></div>
+          <div class="io"><span class="src">0xDEAD_BEEF</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok alt"><span class="n">NUMERIC_LITERAL</span><span class="v">0xDEAD_BEEF</span></span></div></div>
+        </div>
+        <div class="case">
+          <div class="head"><span class="who s">rejeita</span><span class="verdict r">0 erros</span></div>
           <div class="io"><span class="src">-42000</span><span class="arrow">▶</span>
             <div class="stream">
               <span class="tok alt"><span class="n">MINUS</span><span class="v">-</span></span>
               <span class="tok alt"><span class="n">NUMERIC_LITERAL</span><span class="v">42000</span></span>
             </div></div>
-          <div class="errline" style="color:var(--dim)">o parser precisa do <code>-</code> como operador aritmético</div>
+          <div class="errline calm">o sinal fica <b>fora</b> do número: o parser precisa dele como operador</div>
         </div>
-        <div class="callout purple" style="margin-top:1rem">GraphQL não tem aritmética, então <code>-</code> só pode ser sinal. A mesma decisão de projeto aparece de dois jeitos opostos — e os dois fazem sentido.</div>
       </div>
     </div>
+    <div class="callout purple">Em GraphQL o <code>-</code> faz parte do número, porque a linguagem não tem subtração. Em SQL ele precisa ser operador. A mesma decisão, dois caminhos opostos.</div>
     <div class="speaker">bloco 2 · <b>Ethan</b></div>
   </section>
 
-  <!-- ================= 10 · TEXTO: REGRAS ================= -->
-  <section class="slide" id="s10">
-    <span class="slide-tag">// regra 3 de 3</span>
-    <div class="kicker">Texto</div>
-    <h1 class="title">Barra invertida <span class="dim">contra</span> <span class="accent2">aspa duplicada</span></h1>
-    <div class="cols even" style="align-items:start">
+  <!-- ================= 7 · RESULTADO 3 ================= -->
+  <section class="slide" id="s7">
+    <div class="kicker">Resultado 3 de 3 · texto</div>
+    <h1 class="title">Um erra alto, <span class="accent">o outro nunca erra</span></h1>
+    <div class="cols">
       <div>
-        <span class="code-label g">GraphQL.g4:449</span>
-        <pre class="code"><span class="kw">fragment</span> CHARACTER : (ESC | ~ ["\\]) ;
-<span class="kw">fragment</span> ESC : '\\' (["\\/bfnrt] | UNICODE) ;
-<span class="kw">fragment</span> UNICODE : 'u' HEX HEX HEX HEX ;
-
-<span class="kw">STRING</span>       : '"' CHARACTER* '"' ;
-<span class="kw">BLOCK_STRING</span> : '"""' .*? '"""' ;</pre>
+        <span class="code-label g">GraphQL · STRING</span>
+        <pre class="code"><span class="kw">STRING</span> : '"' CHARACTER* '"' ;
+<span class="cm">// escapa com barra: \" \n \uXXXX</span></pre>
+        <div class="case">
+          <div class="head"><span class="who g">aceita</span><span class="verdict a">1 token</span></div>
+          <div class="io"><span class="src">"Caf\u00e9 com leite"</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok ok"><span class="n">STRING</span><span class="v">"Caf\u00e9 com leite"</span></span></div></div>
+        </div>
+        <div class="case">
+          <div class="head"><span class="who g">rejeita</span><span class="verdict r">3 erros</span></div>
+          <div class="io"><span class="src">"c:\pasta\arquivo"</span><span class="arrow">▶</span>
+            <div class="stream">
+              <span class="tok bad"><span class="n">NAME</span><span class="v">asta</span></span>
+              <span class="tok bad"><span class="n">NAME</span><span class="v">arquivo</span></span>
+            </div></div>
+          <div class="errline"><code>\p</code> não é escape válido — a string inteira se perde</div>
+        </div>
+        <div class="case">
+          <div class="head"><span class="who g">rejeita</span><span class="verdict r">1 erro</span></div>
+          <div class="io"><span class="src">"sem fechamento</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok none"><span class="v">nenhum token</span></span></div></div>
+        </div>
       </div>
       <div>
-        <span class="code-label s">SQLiteLexer.g4:232</span>
-        <pre class="code"><span class="kw">STRING_LITERAL</span> : '\'' ( ~'\'' | '\'\'' )* '\'' ;</pre>
-        <div class="callout" style="margin-top:.9rem">Uma linha. Sem escape unicode, sem string multilinha dedicada — e a <b>barra invertida não significa nada</b>.</div>
+        <span class="code-label s">SQLite · STRING_LITERAL</span>
+        <pre class="code"><span class="kw">STRING_LITERAL</span> : '\'' ( ~'\'' | '\'\'' )* '\'' ;
+<span class="cm">// escapa duplicando a aspa: 'O''Brien'</span></pre>
+        <div class="case">
+          <div class="head"><span class="who s">aceita</span><span class="verdict a">1 token cada</span></div>
+          <div class="io"><span class="src">'O''Brien e Cia'</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok alt"><span class="n">STRING_LITERAL</span><span class="v">'O''Brien e Cia'</span></span></div></div>
+          <div class="io"><span class="src">'c:\pasta\arquivo'</span><span class="arrow">▶</span>
+            <div class="stream"><span class="tok alt"><span class="n">STRING_LITERAL</span><span class="v">'c:\pasta\arquivo'</span></span></div></div>
+          <div class="errline calm">a barra invertida aqui não é escape, é caractere comum</div>
+        </div>
+        <div class="case">
+          <div class="head"><span class="who s">rejeita</span><span class="verdict r">0 erros</span></div>
+          <div class="io"><span class="src">'sem fechamento</span><span class="arrow">▶</span>
+            <div class="stream">
+              <span class="tok bad"><span class="n">UNEXPECTED_CHAR</span><span class="v">'</span></span>
+              <span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">sem</span></span>
+              <span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">fechamento</span></span>
+            </div></div>
+          <div class="errline calm">a última regra do arquivo é <code>UNEXPECTED_CHAR : . ;</code> — aceita qualquer caractere</div>
+        </div>
       </div>
     </div>
-    <ul class="points tight" style="margin-top:.9rem">
-      <li>GraphQL exclui <b>dois</b> caracteres do conteúdo livre (<code>~["\\]</code>); SQLite exclui <b>um</b> (<code>~'\''</code>).</li>
-      <li>Só o GraphQL tem <code>\uXXXX</code>. O SQLite não precisa: aceita o caractere acentuado direto.</li>
-      <li>Nas duas, o conjunto complementar casa também <code>\n</code> — string atravessando linha passa no lexer, mesmo quando a spec proíbe.</li>
-    </ul>
+    <div class="callout">O SQLite <b>nunca falha no lexer</b>: quem reclama é o parser. O GraphQL falha na hora e ainda perde caracteres na recuperação.</div>
     <div class="speaker">bloco 2 · <b>Arthur</b></div>
   </section>
 
-  <!-- ================= 11 · TEXTO: RESULTADOS ================= -->
-  <section class="slide" id="s11">
-    <span class="slide-tag">// o contraste central</span>
-    <div class="kicker">Texto · ANTLR4</div>
-    <h1 class="title">Um escape inválido <span class="accent">derruba a linha inteira</span></h1>
-    <div class="case">
-      <div class="head"><span class="who s">SQLite</span><span class="verdict a">aceita</span><span class="note">barra é caractere comum</span></div>
-      <div class="io"><span class="src">'c:\pasta\arquivo'</span><span class="arrow">▶</span>
-        <div class="stream"><span class="tok alt"><span class="n">STRING_LITERAL</span><span class="v">'c:\pasta\arquivo'</span></span></div></div>
-    </div>
-    <div class="case">
-      <div class="head"><span class="who g">GraphQL</span><span class="verdict r">rejeita</span><span class="note">\p não é escape válido</span></div>
-      <div class="io"><span class="src">"c:\pasta\arquivo"</span><span class="arrow">▶</span>
-        <div class="stream">
-          <span class="tok bad"><span class="n">NAME</span><span class="v">asta</span></span>
-          <span class="tok bad"><span class="n">NAME</span><span class="v">arquivo</span></span>
-        </div></div>
-      <div class="errline">3 erros: <span class="mono">'"c:\p'</span> · <span class="mono">'\'</span> · <span class="mono">'"'</span> — e o <b>p</b> de <span class="mono">pasta</span> some junto</div>
-    </div>
-    <div class="cols even" style="margin-top:.2rem">
-      <div class="case">
-        <div class="head"><span class="who g">GraphQL</span><span class="verdict r">sem fechar</span></div>
-        <div class="io"><span class="src">"sem fechamento</span><span class="arrow">▶</span>
-          <div class="stream"><span class="tok none"><span class="v">nenhum token</span></span></div></div>
-        <div class="errline">1 erro cobrindo a linha inteira</div>
-      </div>
-      <div class="case">
-        <div class="head"><span class="who s">SQLite</span><span class="verdict r">sem fechar</span></div>
-        <div class="io"><span class="src">'sem fechamento</span><span class="arrow">▶</span>
-          <div class="stream">
-            <span class="tok bad"><span class="n">UNEXPECTED_CHAR</span><span class="v">'</span></span>
-            <span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">sem</span></span>
-            <span class="tok hid"><span class="n">SPACES</span><span class="v">·</span></span>
-            <span class="tok alt"><span class="n">IDENTIFIER</span><span class="v">fechamento</span></span>
-          </div></div>
-        <div class="errline" style="color:var(--green)">zero erros — <code>UNEXPECTED_CHAR : . ;</code> nunca deixa travar</div>
-      </div>
-    </div>
-    <div class="callout purple">O SQLite <b>nunca falha no lexer</b>. O erro deixa de ser léxico e vira sintático: mensagens melhores, detecção mais tardia.</div>
-    <div class="speaker">bloco 2 · <b>Arthur</b></div>
-  </section>
-
-  <!-- ================= 12 · DIAGRAMAS ================= -->
-  <section class="slide" id="s12">
-    <span class="slide-tag">// diagramas</span>
+  <!-- ================= 8 · DIAGRAMAS ================= -->
+  <section class="slide" id="s8">
     <div class="kicker">Diagramas de sintaxe</div>
-    <h1 class="title">O desenho <span class="accent">denuncia o estilo</span></h1>
-    <div class="cols wide-left" style="align-items:start">
+    <h1 class="title">O desenho mostra <span class="accent">o tamanho da diferença</span></h1>
+    <div class="cols">
       <div>
-        <ul class="points tight">
-          <li><b>NAME</b> do GraphQL: um trilho curto. <b>IDENTIFIER</b> do SQLite: quatro diagramas, um por forma aceita.</li>
-          <li>No número a diferença é de <b>estilo</b>: os 8 fragments do GraphQL viram três trilhos curtos apontando pra outros diagramas; a regra inline do SQLite vira <b>um diagrama grande com laços em três níveis</b>.</li>
-          <li>Três ferramentas comparadas: <b>PlantUML</b> (usada aqui), <b>BottleCaps RR</b> e a extensão <b>vscode-antlr4</b>.</li>
-          <li>Nenhum diagrama mostra <code>caseInsensitive</code> nem a <b>ordem de declaração</b> — o desenho de uma regra isolada é sempre uma verdade parcial.</li>
+        <ul class="points">
+          <li><b>NAME</b> cabe em um trilho só. <b>IDENTIFIER</b> precisa de quatro, um pra cada forma aceita.</li>
+          <li>Geramos com o <b>PlantUML</b>; o <b>BottleCaps</b> e a extensão <b>vscode-antlr4</b> desenham as mesmas regras.</li>
+          <li>O diagrama não mostra tudo: ele não avisa que o SQLite é <b>case-insensitive</b>, nem que ~180 palavras-reservadas vêm antes do IDENTIFIER.</li>
         </ul>
-        <div class="callout red"><b>Bug real encontrado:</b> o PlantUML trava com <code>NoSuchElementException</code> em <code>EbnfEngine.alternation()</code> quando uma alternativa tem alternância aninhada dentro de <code>{ }</code> — exatamente a forma de 3 das 4 alternativas do <code>IDENTIFIER</code>. Contornamos dividindo em quatro sub-diagramas.</div>
       </div>
-      <div class="center-fig" style="gap:1.1rem">
-        <div style="width:100%">
-          <span class="code-label g">GraphQL · NAME</span>
-          <svg viewBox="0 0 430 92" role="img" aria-label="Diagrama de ferrovia da regra NAME">
-            <g fill="none" stroke="#00f5ff" stroke-width="1.6">
-              <circle cx="12" cy="34" r="4" fill="#00f5ff"/>
-              <path d="M16 34 H52"/>
-              <rect x="52" y="18" width="104" height="32" rx="8" fill="rgba(0,245,255,.07)"/>
-              <path d="M156 34 H208"/>
-              <rect x="208" y="18" width="140" height="32" rx="8" fill="rgba(0,245,255,.07)"/>
-              <path d="M348 34 H372 a10 10 0 0 1 10 10 v12 a10 10 0 0 1 -10 10 H194 a10 10 0 0 1 -10 -10 v-12 a10 10 0 0 1 10 -10 h14" stroke-dasharray="5 4"/>
-              <path d="M348 34 H406"/>
-              <circle cx="414" cy="34" r="4" fill="#00f5ff"/>
-            </g>
-            <g font-family="Space Mono, monospace" font-size="13" fill="#cfe9ff" text-anchor="middle">
-              <text x="104" y="39">[_A-Za-z]</text>
-              <text x="278" y="39">[_0-9A-Za-z]</text>
-              <text x="283" y="82" font-size="10" fill="#8a90a8">repete zero ou mais vezes</text>
-            </g>
-          </svg>
-        </div>
-        <div style="width:100%">
-          <span class="code-label s">SQLite · IDENTIFIER</span>
-          <svg viewBox="0 0 430 216" role="img" aria-label="Diagrama de ferrovia da regra IDENTIFIER, quatro alternativas">
-            <g fill="none" stroke="#b44fff" stroke-width="1.6">
-              <circle cx="12" cy="108" r="4" fill="#b44fff"/>
-              <path d="M16 108 H30 M30 24 V192"/>
-              <path d="M30 24 H50 M30 80 H50 M30 136 H50 M30 192 H50"/>
-              <rect x="50" y="8" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <rect x="96" y="8" width="164" height="32" rx="8" fill="rgba(180,79,255,.05)" stroke-dasharray="5 4"/>
-              <rect x="276" y="8" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <path d="M80 24 H96 M260 24 H276 M306 24 H380"/>
-              <rect x="50" y="64" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <rect x="96" y="64" width="164" height="32" rx="8" fill="rgba(180,79,255,.05)" stroke-dasharray="5 4"/>
-              <rect x="276" y="64" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <path d="M80 80 H96 M260 80 H276 M306 80 H380"/>
-              <rect x="50" y="120" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <rect x="96" y="120" width="164" height="32" rx="8" fill="rgba(180,79,255,.05)" stroke-dasharray="5 4"/>
-              <rect x="276" y="120" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <path d="M80 136 H96 M260 136 H276 M306 136 H380"/>
-              <rect x="50" y="176" width="130" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <rect x="216" y="176" width="150" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
-              <path d="M180 192 H216 M366 192 H380"/>
-              <path d="M380 24 V192 M380 108 H406"/>
-              <circle cx="414" cy="108" r="4" fill="#b44fff"/>
-            </g>
-            <g font-family="Space Mono, monospace" font-size="12" fill="#e7d6ff" text-anchor="middle">
-              <text x="65" y="29">&quot;</text><text x="178" y="29">~&quot; | &quot;&quot;</text><text x="291" y="29">&quot;</text>
-              <text x="65" y="85">`</text><text x="178" y="85">~` | ``</text><text x="291" y="85">`</text>
-              <text x="65" y="141">[</text><text x="178" y="141">~]</text><text x="291" y="141">]</text>
-              <text x="115" y="197" font-size="10">[A-Z_ \u007F-\uFFFF]</text>
-              <text x="291" y="197" font-size="10">[A-Z_0-9 \u007F-\uFFFF]</text>
-            </g>
-          </svg>
-        </div>
-        <span class="fig-cap">redesenho fiel · originais em diagramas/img/*.png</span>
+      <div>
+        <span class="code-label g">GraphQL · NAME</span>
+        <svg viewBox="0 0 430 74" role="img" aria-label="Diagrama de ferrovia da regra NAME">
+          <g fill="none" stroke="#00f5ff" stroke-width="1.6">
+            <circle cx="12" cy="30" r="4" fill="#00f5ff"/>
+            <path d="M16 30 H52"/>
+            <rect x="52" y="14" width="104" height="32" rx="8" fill="rgba(0,245,255,.07)"/>
+            <path d="M156 30 H208"/>
+            <rect x="208" y="14" width="140" height="32" rx="8" fill="rgba(0,245,255,.07)"/>
+            <path d="M348 30 H368 a10 10 0 0 1 10 10 v10 a10 10 0 0 1 -10 10 H198 a10 10 0 0 1 -10 -10 v-10 a10 10 0 0 1 10 -10 h10" stroke-dasharray="5 4"/>
+            <path d="M348 30 H406"/>
+            <circle cx="414" cy="30" r="4" fill="#00f5ff"/>
+          </g>
+          <g font-family="Space Mono, monospace" font-size="13" fill="#cfe9ff" text-anchor="middle">
+            <text x="104" y="35">[_A-Za-z]</text>
+            <text x="278" y="35">[_0-9A-Za-z]</text>
+          </g>
+        </svg>
+        <span class="code-label s" style="margin-top:1rem">SQLite · IDENTIFIER</span>
+        <svg viewBox="0 0 430 216" role="img" aria-label="Diagrama de ferrovia da regra IDENTIFIER com quatro alternativas">
+          <g fill="none" stroke="#b44fff" stroke-width="1.6">
+            <circle cx="12" cy="108" r="4" fill="#b44fff"/>
+            <path d="M16 108 H30 M30 24 V192"/>
+            <path d="M30 24 H50 M30 80 H50 M30 136 H50 M30 192 H50"/>
+            <rect x="50" y="8" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <rect x="96" y="8" width="164" height="32" rx="8" fill="rgba(180,79,255,.05)" stroke-dasharray="5 4"/>
+            <rect x="276" y="8" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <path d="M80 24 H96 M260 24 H276 M306 24 H380"/>
+            <rect x="50" y="64" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <rect x="96" y="64" width="164" height="32" rx="8" fill="rgba(180,79,255,.05)" stroke-dasharray="5 4"/>
+            <rect x="276" y="64" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <path d="M80 80 H96 M260 80 H276 M306 80 H380"/>
+            <rect x="50" y="120" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <rect x="96" y="120" width="164" height="32" rx="8" fill="rgba(180,79,255,.05)" stroke-dasharray="5 4"/>
+            <rect x="276" y="120" width="30" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <path d="M80 136 H96 M260 136 H276 M306 136 H380"/>
+            <rect x="50" y="176" width="130" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <rect x="216" y="176" width="150" height="32" rx="8" fill="rgba(180,79,255,.07)"/>
+            <path d="M180 192 H216 M366 192 H380"/>
+            <path d="M380 24 V192 M380 108 H406"/>
+            <circle cx="414" cy="108" r="4" fill="#b44fff"/>
+          </g>
+          <g font-family="Space Mono, monospace" font-size="12" fill="#e7d6ff" text-anchor="middle">
+            <text x="65" y="29">&quot;</text><text x="178" y="29">~&quot; | &quot;&quot;</text><text x="291" y="29">&quot;</text>
+            <text x="65" y="85">`</text><text x="178" y="85">~` | ``</text><text x="291" y="85">`</text>
+            <text x="65" y="141">[</text><text x="178" y="141">~]</text><text x="291" y="141">]</text>
+            <text x="115" y="197" font-size="10">[A-Z_ \u007F-\uFFFF]</text>
+            <text x="291" y="197" font-size="10">[A-Z_0-9 \u007F-\uFFFF]</text>
+          </g>
+        </svg>
+        <span class="fig-cap">originais em diagramas/img/*.png</span>
       </div>
     </div>
     <div class="speaker">bloco 3 · <b>Eduardo</b></div>
   </section>
 
-  <!-- ================= 13 · ACHADOS EXTRAS ================= -->
-  <section class="slide" id="s13">
-    <span class="slide-tag">// extra · se sobrar tempo</span>
-    <div class="kicker">Achados no GraphQL.g4</div>
-    <h1 class="title">Três defeitos que o ANTLR <span class="accent">não avisa</span></h1>
-    <div class="cards c3">
-      <div class="card">
-        <span class="ico">🚫</span>
-        <h3>ID é inalcançável</h3>
-        <p><code>ID : STRING ;</code> reconhece a mesma linguagem de <code>STRING</code> e é declarada depois. No empate vence quem vem primeiro — <b>ID nunca é emitido</b>.</p>
-      </div>
-      <div class="card p">
-        <span class="ico">💀</span>
-        <h3>fragment EXP é código morto</h3>
-        <p>Ninguém referencia <code>EXP</code>; o expoente real é <code>EXPONENTIAL_PART</code>. Pior: <code>EXP</code> usaria <code>INT</code>, que já traz sinal — <code>1e--5</code> passaria por esse caminho.</p>
-      </div>
-      <div class="card">
-        <span class="ico">🐛</span>
-        <h3>UTF8_BOM está errada</h3>
-        <p><code>'\uEFBBBF'</code> — o ANTLR lê <code>\u</code> com <b>exatamente 4</b> dígitos. Vira <code>U+EFBB</code> seguido das letras <b>B</b> e <b>F</b>, não o BOM UTF-8.</p>
-      </div>
-    </div>
-    <ul class="points tight" style="margin-top:1.2rem">
-      <li>Todos confirmados <b>empiricamente</b>, com entradas dedicadas — não só por leitura do arquivo.</li>
-      <li>O BOM real (<code>U+FEFF</code>) casa por <code>UTF16_BOM</code>, então a regra quebrada é inofensiva na prática: só <b>engana quem lê</b>.</li>
-      <li>No <code>SQLiteLexer.g4</code>, <span class="hl-green">nenhum defeito encontrado</span>.</li>
+  <!-- ================= 9 · CONCLUSÃO ================= -->
+  <section class="slide" id="s9">
+    <div class="kicker">Conclusão</div>
+    <h1 class="title">Rejeitar <span class="dim">quase nunca é</span> <span class="accent">dar erro</span></h1>
+    <ul class="points">
+      <li>Dos <b>12 casos que projetamos pra falhar</b>, só 4 deram erro léxico — todos no GraphQL. Nos outros 8 o lexer só quebrou o texto de um jeito diferente, sem avisar nada.</li>
+      <li>Quando dá erro, ele <b>não fica parado onde aconteceu</b>: o ANTLR descarta um caractere e o resto da linha desanda.</li>
+      <li>A fronteira entre lexer e parser é <b>escolha de projeto</b>: o sinal do número fica dentro em GraphQL e fora em SQLite, e os dois estão certos pra sua linguagem.</li>
     </ul>
-    <div class="speaker">bônus · sem fala no roteiro</div>
-  </section>
-
-  <!-- ================= 14 · CONCLUSÕES ================= -->
-  <section class="slide" id="s14">
-    <span class="slide-tag">// conclusão</span>
-    <div class="kicker">Aprendizados</div>
-    <h1 class="title">Rejeitar <span class="dim">quase nunca é</span> <span class="accent">acusar erro</span></h1>
-    <div class="stats" style="margin-bottom:1.2rem">
-      <div class="stat"><div class="num">12</div><div class="lab">casos projetados<br>para <b>falhar</b></div></div>
-      <div class="stat r"><div class="num">4</div><div class="lab">geraram erro léxico<br>de verdade</div></div>
-      <div class="stat p"><div class="num">8</div><div class="lab">falharam <b>em silêncio</b><br>só mudando os tokens</div></div>
-      <div class="stat"><div class="num">0</div><div class="lab">erros léxicos possíveis<br>no <b>SQLite</b></div></div>
-    </div>
-    <div class="case" style="margin-bottom:.6rem">
-      <div class="head"><span class="who g">GraphQL</span><span class="verdict r">o erro desloca o resto</span></div>
-      <div class="io"><span class="src">user-profile-name</span><span class="arrow">▶</span>
-        <div class="stream">
-          <span class="tok ok"><span class="n">NAME</span><span class="v">user</span></span>
-          <span class="tok bad"><span class="n">NAME</span><span class="v">rofile</span></span>
-          <span class="tok bad"><span class="n">NAME</span><span class="v">ame</span></span>
-        </div>
-        <span class="note">o hífen some e leva a primeira letra junto</span></div>
-    </div>
-    <ul class="icons">
-      <li><span class="e">🧩</span><div><b>Avaliar um lexer exige ler a sequência de tokens inteira</b>, não procurar mensagem de erro. Os 4 erros saíram todos do GraphQL, que não tem catch-all.</div></li>
-      <li><span class="e">💥</span><div><b>Erro léxico não fica onde acontece.</b> O <code>recover()</code> descarta um caractere e desloca o resto: em <code>user-profile-name</code> o hífen some e a próxima palavra perde a primeira letra.</div></li>
-      <li><span class="e">✂️</span><div><b>A fronteira lexer/parser é escolha de projeto.</b> O sinal fica dentro do número em GraphQL e fora em SQLite — as duas decisões estão certas para o que cada linguagem precisa.</div></li>
-    </ul>
-    <div class="impact">O mesmo texto, dois lexers: um recusa alto e perde caracteres,<br>o outro aceita tudo e empurra o problema pro parser.</div>
-    <div class="speaker">bloco 4 · <b>Ethan</b> · <b>Arthur</b> · <b>Eduardo</b></div>
-  </section>
-
-  <!-- ================= 15 · REFERÊNCIAS ================= -->
-  <section class="slide" id="s15">
-    <span class="slide-tag">// bibliografia</span>
-    <div class="kicker">Referências</div>
-    <h1 class="title">Fontes <span class="accent">e reprodução</span></h1>
-    <div class="cols even" style="align-items:start">
-      <ul class="refs">
-        <li>PARR, T. <i>The Definitive ANTLR 4 Reference.</i> 2ª ed., Pragmatic Bookshelf, 2013 — cap. 5 e 15.</li>
-        <li>ANTLR 4 Documentation — <i>Lexer Rules</i> e <i>Case-Insensitive Lexing</i>.</li>
-        <li>grammars-v4 — <code>graphql/GraphQL.g4</code> e <code>sql/sqlite/SQLiteLexer.g4</code>.</li>
-        <li>GraphQL Specification, October 2021 — <i>Names</i>, <i>Int Value</i>, <i>Float Value</i>, <i>String Value</i>.</li>
-        <li>SQLite — <i>SQL As Understood By SQLite</i>: literais, palavras-reservadas e identificadores delimitados.</li>
-      </ul>
-      <div>
-        <div class="callout"><b>Repositório:</b> github.com/EduardoAlcaria/t1_manga<br><span class="dim">ANALISE.md · inputs/casos.tsv · out/tabela-tokens.md</span></div>
-        <span class="code-label" style="margin-top:1.1rem">reproduzir tudo</span>
-        <pre class="code">$ ./setup.sh   <span class="cm"># baixa ANTLR 4.13.2</span>
-$ ./run.sh     <span class="cm"># gera, compila, roda os 24</span>
-
-<span class="ok">Pronto.</span>
-  saida bruta : out/saida-antlr4.txt
-  tabela      : out/tabela-tokens.md</pre>
-        <div class="callout purple" style="margin-top:1rem"><b>IA generativa declarada:</b> leitura inicial das gramáticas, sugestão de casos, redação do driver e primeira versão do relatório. <b>Não</b> usada na execução dos casos nem na verificação dos achados.</div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ================= 16 · ENCERRAMENTO ================= -->
-  <section class="slide" id="s16">
-    <span class="slide-tag">// fim</span>
-    <div class="kicker">Obrigado</div>
-    <h1 class="title">Dois lexers prontos, <span class="accent">testes reais</span>, zero achismo</h1>
-    <p class="lead">Foi isso que descobrimos comparando <b>GraphQL.g4</b> e <b>SQLiteLexer.g4</b>
-      com 24 entradas rodadas no ANTLR 4.13.2.</p>
-    <div class="impact">Arthur &nbsp;·&nbsp; Eduardo &nbsp;·&nbsp; Ethan<br>Linguagens de Programação · PUCRS 2026/II</div>
+    <div class="impact">Obrigado.<br>Arthur &nbsp;·&nbsp; Eduardo &nbsp;·&nbsp; Ethan</div>
     <div class="speaker">bloco 4 · <b>todos</b></div>
   </section>
 
 </div>
 
 <!-- chrome -->
-<div class="counter"><span class="cur" id="cur">01</span> / <span id="tot">16</span></div>
+<div class="counter"><span class="cur" id="cur">01</span> / <span id="tot">09</span></div>
 <div class="nav left"><button id="prev" aria-label="Slide anterior">←</button></div>
 <div class="nav right"><button id="next" aria-label="Próximo slide">→</button></div>
 
@@ -909,7 +597,7 @@ $ ./run.sh     <span class="cm"># gera, compila, roda os 24</span>
 
   render();
 
-  /* ===== capa: fluxo de tokens reais dos nossos 24 casos ===== */
+  /* capa: fluxo de tokens reais dos casos */
   const canvas=document.getElementById('tape');
   const ctx=canvas.getContext('2d');
   if(!ctx.roundRect){
@@ -919,7 +607,6 @@ $ ./run.sh     <span class="cm"># gera, compila, roda os 24</span>
       this.arcTo(x,y+h,x,y,r);this.arcTo(x,y,x+w,y,r);this.closePath();return this;
     };
   }
-  // [texto, estilo] — 0 cyan (GraphQL ok), 1 roxo (SQLite), 2 vermelho (token estranho)
   const ROWS=[
     [['10',0],['_000',2],['0',2],['10_000.00',1],['0xDEAD_BEEF',1]],
     [['"minha coluna"',1],['[Order Details]',1],['user',0],['rofile',2],['ame',2]],
@@ -943,7 +630,7 @@ $ ./run.sh     <span class="cm"># gera, compila, roda os 24</span>
     const PAD=24,GAP=13,BH=42;
     for(let ri=0;ri<ROWS.length;ri++){
       const row=ROWS[ri];
-      const cy=H*ROWY[ri];   // faixas fora da area do texto da capa
+      const cy=H*ROWY[ri];
       const speed=0.5+ri*0.15;
       const widths=row.map(t=>ctx.measureText(t[0]).width+PAD*2);
       const runW=widths.reduce((a,b)=>a+b+GAP,0);
@@ -967,7 +654,7 @@ $ ./run.sh     <span class="cm"># gera, compila, roda os 24</span>
   resize();window.addEventListener('resize',resize);
   requestAnimationFrame(draw);
 
-  /* ===== particulas de fundo ===== */
+  /* particulas de fundo */
   const pc=document.getElementById('particles');
   const pctx=pc.getContext('2d');
   let PW,PH,parts=[];
