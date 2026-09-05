@@ -133,6 +133,14 @@ material de comparacao entre ferramentas no relatorio (`ANALISE.md`, secao 5).
 ./run.sh     # gera os lexers, compila e executa os 24 casos
 ```
 
+No Windows os dois scripts rodam no **Git Bash** (instalado junto com o Git for
+Windows), sem WSL. O `run.sh` detecta `MINGW/MSYS/CYGWIN` via `uname -s` e passa
+os caminhos por `cygpath -w`, usando `;` como separador de classpath, que e o
+que o `java` nativo espera. O `.gitattributes` forca LF nos scripts para o Git
+Bash nao falhar com `$'\r': command not found`, e marca `inputs/` como `-text`
+para que os arquivos de teste cheguem ao lexer byte a byte.
+
+
 O `run.sh` executa quatro etapas:
 
 1. `java -jar tools/antlr-4.13.2-complete.jar -Dlanguage=Java -o gen ...` gera
